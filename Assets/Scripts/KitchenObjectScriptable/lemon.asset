@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2541159df30e26741a5feea2242f0645, type: 3}
+  m_Name: lemon
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectSO
+  prefab: {fileID: 7959511895203623778, guid: 1ce2b355ee6d6a749b4bd6de110cecdb, type: 3}
+  icon: {fileID: 21300000, guid: 73dab91caf0ecdb4ab642f5e4f7807fd, type: 3}
+  objectName: Lemon
