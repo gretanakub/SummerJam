@@ -14,39 +14,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 1.01
   subtype: kitchenchaos
-  lastShownTimestamp: 1776501273
+  lastShownTimestamp: 1776603234
   lastUpdateResponse:
-    version: 1.00
+    version: 1.01
     versionUrl: https://unitycodemonkey.com
-  checkedLastUpdateTimestamp: 1776501273
+  checkedLastUpdateTimestamp: 1776603234
   lastQOTDResponse:
-    questionId: 163
-    questionText: What is the purpose of Unity Hub?
-    answerA: Provide a space for the community to interact
-    answerB: Manage different Unity versions and Projects
-    answerC: Dashboard for Unity services
+    questionId: 293
+    questionText: 'What is the position of the transform after running this code?
+
+      <p>Vector3
+      targetPosition = new Vector3(10, 0, 0);</p>
+
+      <p>transform.position =
+      targetPosition;</p>
+
+      <p>targetPosition.x = 20;</p>'
+    answerA: (10, 0, 0)
+    answerB: (20, 0, 0)
+    answerC: Unknown
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1776501273
+  lastQotdTimestamp: 1776603234
   lastDynamicHeaderResponse:
-    topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/humbleBundleSyntyMar25.png
-    topText: Make ANY game with these awesome Assets! (96% OFF ENDS SOON!)
-    topLink: humblebundle
-    bottomText: Learn Unity DOTS for MASSIVE Performance Boosts! (and make an RTS)
-    bottomLink: dotscourse
-  lastDynamicHeaderTimestamp: 1776501273
+    topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/codeMonkeyToolkit50Off.png
+    topText: My Toolkit is 50% OFF! 40+ Tools and Elements to help you make games
+      BETTER and FASTER!
+    topLink: toolkit
+    bottomText: My 10+ Years of C# Knowledge in 1 Course!
+    bottomLink: csharpcourse
+  lastDynamicHeaderTimestamp: 1776603234
   websiteLatestMessage:
     text: <a href="https://cmonkey.co/freecourses">Check out all my FREE courses!
       Click here!</a>
-  websiteLatestMessageTimestamp: 1776501273
+  websiteLatestMessageTimestamp: 1776603234
   websiteLatestVideos:
     videos:
-    - youTubeId: ZIg7VoD9ptI
-      title: The FUTURE of Unity in 2025 and BEYOND!
-    - youTubeId: W_XOZAWJF24
-      title: I made the MOST PROFITABLE Game as a Test!
-    - youTubeId: J0KMvH-yFmA
-      title: TOP 10 NEW Games, Made with Unity! (FEBRUARY 2025)
-    - youTubeId: DOSLOa7cnoE
-      title: I SHOULD have done this a long time ago, and YOU too!
-  websiteLatestVideosTimestamp: 1776501273
+    - youTubeId: B82lo8t4IHs
+      title: TOP 10 FREE NEW Assets APRIL 2026!
+    - youTubeId: xLH5H6aWZHo
+      title: Every game is 90% THE SAME!
+    - youTubeId: IkYt5CqoAoY
+      title: TOOLS to help you make games BETTER and FASTER!
+    - youTubeId: MYDfoKJ6-dw
+      title: Will this engine COMPETE with Unity?
+  websiteLatestVideosTimestamp: 1776603234
