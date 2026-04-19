@@ -17,12 +17,12 @@
                 },
                 {
                     "name": "Look",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "a66b4ca0-3948-4400-8949-339669f78924",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Interact",
@@ -37,6 +37,24 @@
                     "name": "Drop",
                     "type": "Button",
                     "id": "bc89455d-b5ff-4da8-864c-ffcf270d27d3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "86552767-6cb4-44eb-91ec-daaf5e7c49e3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "1d29c9b0-d838-4b54-8759-68b8703067ba",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -178,6 +196,17 @@
                 },
                 {
                     "name": "",
+                    "id": "8b71ca55-a2f9-43f8-8263-d50d44128857",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";WASD",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ae28b231-1c29-4a8b-b804-2ade35039b4f",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -217,6 +246,50 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "75a15359-06ac-45ad-a80c-350ad49ff4ff",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";WASD",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15667b8d-7919-45f5-98f8-ab50602db12c",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7038bbb9-fa15-4c4f-b2a2-a1e3f1425343",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f868475-2d3c-4139-8437-929944a4d7e4",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";WASD",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

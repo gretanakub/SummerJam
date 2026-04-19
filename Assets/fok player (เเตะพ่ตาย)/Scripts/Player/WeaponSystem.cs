@@ -1,30 +1,37 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class WeaponSystem : MonoBehaviour
 {
     public WeaponData weaponData;
     public Transform firePoint;
 
+    public int currentAmmo;
+    public UnityEvent<int, int> onAmmoChanged;
+
     private float nextFireTime = 0f;
+    private PlayerInputHandler inputHandler;
+
+    void Start()
+    {
+        inputHandler = GetComponent<PlayerInputHandler>();
+        if (weaponData != null)
+            currentAmmo = weaponData.maxAmmo;
+    }
 
     void Update()
     {
-        bool isShooting = false;
-        if (Mouse.current != null && Mouse.current.leftButton.isPressed)
-            isShooting = true;
-        if (Gamepad.current != null && Gamepad.current.rightTrigger.isPressed)
-            isShooting = true;
+        if (weaponData == null) return;
 
         if (weaponData.weaponType == WeaponData.WeaponType.Katana)
         {
-            // คาตานะกดค้างไม่ได้ ต้องกดใหม่ทุกครั้ง
-            if (Mouse.current.leftButton.wasPressedThisFrame && CanFire())
+            if (inputHandler.ShootInputDown && CanFire())
                 MeleeAttack();
         }
         else
         {
-            if (isShooting && CanFire())
+            if (inputHandler.ShootInput && CanFire() && currentAmmo > 0)
                 Shoot();
         }
     }
@@ -34,53 +41,57 @@ public class WeaponSystem : MonoBehaviour
         return Time.time >= nextFireTime;
     }
 
-void Shoot()
-{
-    nextFireTime = Time.time + weaponData.fireRate;
-
-    // เพิ่มเสียงยิง
-    if (SoundManager.Instance != null)
-        SoundManager.Instance.PlayShoot(weaponData.weaponType);
-
-    for (int i = 0; i < weaponData.bulletCount; i++)
+    void Shoot()
     {
-        float angle = Random.Range(-weaponData.spreadAngle / 2f, weaponData.spreadAngle / 2f);
-        Quaternion rotation = firePoint.rotation * Quaternion.Euler(0, angle, 0);
+        nextFireTime = Time.time + weaponData.fireRate;
+        currentAmmo--;
 
-        GameObject bullet = Instantiate(weaponData.bulletPrefab, firePoint.position, rotation);
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        if (rb != null)
-            rb.linearVelocity = rotation * Vector3.forward * weaponData.bulletSpeed;
-    }
+        onAmmoChanged.Invoke(currentAmmo, weaponData.maxAmmo);
 
-    nextFireTime = Time.time + weaponData.fireRate;
-    Debug.Log("FireRate: " + weaponData.fireRate + " | NextFireTime: " + nextFireTime);
-    // ...
-}
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlayShoot(weaponData.weaponType);
 
-void MeleeAttack()
-{
-    nextFireTime = Time.time + weaponData.fireRate;
-
-    // เพิ่มเสียงคาตานะ
-    if (SoundManager.Instance != null)
-        SoundManager.Instance.PlayShoot(weaponData.weaponType);
-
-    Collider[] hits = Physics.OverlapSphere(firePoint.position, weaponData.attackRange);
-    foreach (Collider hit in hits)
-    {
-        if (hit.CompareTag("Enemy"))
+        for (int i = 0; i < weaponData.bulletCount; i++)
         {
-            EnemyAiTutorial enemy = hit.GetComponent<EnemyAiTutorial>();
-            if (enemy != null)
-                enemy.TakeDamage(weaponData.damage);
+            float angle = Random.Range(-weaponData.spreadAngle / 2f, weaponData.spreadAngle / 2f);
+            Quaternion rotation = firePoint.rotation * Quaternion.Euler(0, angle, 0);
+
+            GameObject bullet = Instantiate(weaponData.bulletPrefab, firePoint.position, rotation);
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            if (rb != null)
+                rb.linearVelocity = rotation * Vector3.forward * weaponData.bulletSpeed;
         }
     }
-}
 
-    // เรียกตอนโหลดตัวละคร
+    void MeleeAttack()
+    {
+        nextFireTime = Time.time + weaponData.fireRate;
+
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlayShoot(weaponData.weaponType);
+
+        Collider[] hits = Physics.OverlapSphere(firePoint.position, weaponData.attackRange);
+        foreach (Collider hit in hits)
+        {
+            if (hit.CompareTag("Enemy"))
+            {
+                EnemyAiTutorial enemy = hit.GetComponent<EnemyAiTutorial>();
+                if (enemy != null)
+                    enemy.TakeDamage(weaponData.damage);
+            }
+        }
+    }
+
     public void SetWeapon(WeaponData data)
     {
         weaponData = data;
+        currentAmmo = data.maxAmmo;
+        onAmmoChanged.Invoke(currentAmmo, weaponData.maxAmmo);
+    }
+
+    public void AddAmmo(int amount)
+    {
+        currentAmmo = Mathf.Clamp(currentAmmo + amount, 0, weaponData.maxAmmo);
+        onAmmoChanged.Invoke(currentAmmo, weaponData.maxAmmo);
     }
 }

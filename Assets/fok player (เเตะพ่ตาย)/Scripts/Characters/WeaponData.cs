@@ -3,6 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "WeaponData", menuName = "Game/Weapon Data")]
 public class WeaponData : ScriptableObject
 {
+    [Header("กระสุน")]
+    public int maxAmmo;          // กระสุนสูงสุด
+    public int ammoPerPickup;    // เก็บได้ครั้งละเท่าไหร่
+
     public string weaponName;
 
     public enum WeaponType { Gun, Shotgun, MachineGun, Katana }

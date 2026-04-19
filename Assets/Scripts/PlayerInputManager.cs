@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class PlayerInputManager : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class PlayerInputManager : MonoBehaviour
 
     private bool wasdJoined = false;
     private bool arrowsJoined = false;
-    private bool gamepadJoined = false;
+    private HashSet<Gamepad> joinedGamepads = new HashSet<Gamepad>();
+    private int playerCount = 0;
 
     void Update()
     {
@@ -18,35 +20,41 @@ public class PlayerInputManager : MonoBehaviour
         {
             var player = PlayerInput.Instantiate(playerPrefab,
                 controlScheme: "WASD",
-                pairWithDevice: Keyboard.current); // P เล็ก
+                pairWithDevice: Keyboard.current);
 
-            if (spawnPoints.Length > 0)
-                player.transform.position = spawnPoints[0].position;
+            if (playerCount < spawnPoints.Length)
+                player.transform.position = spawnPoints[playerCount].position;
 
             wasdJoined = true;
+            playerCount++;
         }
 
         if (!arrowsJoined && Keyboard.current.rightCtrlKey.wasPressedThisFrame)
         {
             var player = PlayerInput.Instantiate(playerPrefab,
                 controlScheme: "Arrows",
-                pairWithDevice: Keyboard.current); // P เล็ก
+                pairWithDevice: Keyboard.current);
 
-            if (spawnPoints.Length > 1)
-                player.transform.position = spawnPoints[1].position;
+            if (playerCount < spawnPoints.Length)
+                player.transform.position = spawnPoints[playerCount].position;
 
             arrowsJoined = true;
+            playerCount++;
         }
 
-        foreach (var gamePad in Gamepad.all)
+        foreach (var gamepad in Gamepad.all)
         {
-            if (gamePad.buttonSouth.wasPressedThisFrame && !gamepadJoined)
+            if (gamepad.buttonSouth.wasPressedThisFrame && !joinedGamepads.Contains(gamepad) && playerCount < 4)
             {
-                PlayerInput.Instantiate(playerPrefab,
+                var player = PlayerInput.Instantiate(playerPrefab,
                     controlScheme: "Gamepad",
-                    pairWithDevice: gamePad); // P เล็ก
+                    pairWithDevice: gamepad);
 
-                gamepadJoined = true;
+                if (playerCount < spawnPoints.Length)
+                    player.transform.position = spawnPoints[playerCount].position;
+
+                joinedGamepads.Add(gamepad);
+                playerCount++;
             }
         }
     }

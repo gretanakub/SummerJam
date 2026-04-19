@@ -5,45 +5,38 @@ public class PlayerAiming : MonoBehaviour
 {
     public LayerMask groundLayer;
 
+    private PlayerInputHandler inputHandler;
+
+    void Start()
+    {
+        inputHandler = GetComponent<PlayerInputHandler>();
+    }
+
     void Update()
     {
-        // เช็คว่ากำลังใช้ Gamepad อยู่ไหม
-        if (Gamepad.current != null && Gamepad.current.rightStick.ReadValue().magnitude > 0.1f)
-        {
+        if (inputHandler.isGamepad)
             RotateWithGamepad();
-        }
         else
-        {
             RotateTowardsMouse();
-        }
     }
 
     void RotateTowardsMouse()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-
+        Ray ray = Camera.main.ScreenPointToRay(inputHandler.LookInput);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer))
         {
-            Vector3 targetPoint = hit.point;
-            Vector3 direction = targetPoint - transform.position;
+            Vector3 direction = hit.point - transform.position;
             direction.y = 0f;
-
             if (direction != Vector3.zero)
-            {
                 transform.rotation = Quaternion.LookRotation(direction);
-            }
         }
     }
 
     void RotateWithGamepad()
     {
-        // อ่านค่า Right Stick จาก Gamepad
-        Vector2 stick = Gamepad.current.rightStick.ReadValue();
+        Vector2 stick = inputHandler.LookInput;
         Vector3 direction = new Vector3(stick.x, 0f, stick.y);
-
         if (direction != Vector3.zero)
-        {
             transform.rotation = Quaternion.LookRotation(direction);
-        }
     }
 }

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea138e3e847156429df7ba6fbb86b2a, type: 3}
   m_Name: WPN_Shotgun
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  maxAmmo: 16
+  ammoPerPickup: 8
   weaponName: Shotgun
   weaponType: 0
   damage: 15
