@@ -58,8 +58,8 @@ Rigidbody:
   m_GameObject: {fileID: 52118148395110323}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0
+  m_LinearDamping: 0.5
+  m_AngularDamping: 0.1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -83,7 +83,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 52118148395110323}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 256c10048e9201f43868e0a18ec57ab2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -96,7 +96,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.47
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.64, z: 0}
 --- !u!114 &-585614161060564975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectPushable
   pushForce: 3
+  torqueForce: 2
 --- !u!1001 &1845302282915495102
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -144,7 +145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8930606500096239750, guid: 336db940e198e9e418bd60c29b546f45, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.65
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8930606500096239750, guid: 336db940e198e9e418bd60c29b546f45, type: 3}
       propertyPath: m_LocalPosition.z

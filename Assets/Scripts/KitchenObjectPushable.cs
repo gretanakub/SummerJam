@@ -3,6 +3,7 @@ using UnityEngine;
 public class KitchenObjectPushable : MonoBehaviour
 {
     [SerializeField] private float pushForce = 3f;
+    [SerializeField] private float torqueForce = 2f;
 
     private Rigidbody rb;
 
@@ -13,17 +14,20 @@ public class KitchenObjectPushable : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        // เช็คว่าชนกับ player
         if (collision.gameObject.TryGetComponent(out PlayerController player))
         {
-            // ผลักของออกจาก player
             Vector3 pushDir = transform.position - collision.transform.position;
             pushDir.y = 0;
             pushDir.Normalize();
 
             if (rb != null && !rb.isKinematic)
             {
-                rb.AddForce(pushDir * pushForce, ForceMode.Force);
+                // ผลักไปข้างหน้า
+                rb.AddForce(pushDir * pushForce, ForceMode.Impulse);
+
+                // หมุนให้กลิ้ง
+                Vector3 torqueDir = Vector3.Cross(Vector3.up, pushDir);
+                rb.AddTorque(torqueDir * torqueForce, ForceMode.Impulse);
             }
         }
     }
