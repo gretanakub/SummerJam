@@ -1,13 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
+    public event Action<ClearCounter> OnSelectedCounterChanged;
+
     [SerializeField] private float speed = 5f;
     [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private float playerHeight = 2f;
     [SerializeField] private float playerRadius = 0.5f;
     [SerializeField] private float gamepadLookSensitivity = 5f;
+    [SerializeField] private float interactDistance = 2f;
+    [SerializeField] private LayerMask counterLayerMask;
 
     private CharacterController controller;
     private Vector2 moveInput;
@@ -15,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private Camera mainCamera;
     private bool isGamepad = false;
     private Vector3 lastGamepadLookDir = Vector3.forward;
+    private ClearCounter selectedCounter;
 
     void Awake()
     {
@@ -26,15 +32,29 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = context.ReadValue<Vector2>();
 
-      
         if (context.phase != InputActionPhase.Canceled)
             isGamepad = context.control.device is Gamepad;
+    }
+
+    public void Interact(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (selectedCounter != null)
+                selectedCounter.Interact();
+        }
+    }
+
+    public ClearCounter GetSelectedCounter()
+    {
+        return selectedCounter;
     }
 
     void Update()
     {
         HandleMovement();
         HandleRotation();
+        HandleInteract();
     }
 
     private void HandleMovement()
@@ -92,15 +112,12 @@ public class PlayerController : MonoBehaviour
     {
         if (isGamepad)
         {
-           
             Vector2 rightStick = Gamepad.current != null
                 ? Gamepad.current.rightStick.ReadValue()
                 : Vector2.zero;
 
             if (rightStick.magnitude > 0.1f)
-            {
                 lastGamepadLookDir = new Vector3(rightStick.x, 0, rightStick.y).normalized;
-            }
 
             transform.forward = Vector3.Slerp(
                 transform.forward,
@@ -126,6 +143,43 @@ public class PlayerController : MonoBehaviour
                     );
                 }
             }
+        }
+    }
+
+    private void HandleInteract()
+    {
+        if (Physics.Raycast(
+            transform.position,
+            transform.forward,
+            out RaycastHit hit,
+            interactDistance,
+            counterLayerMask))
+        {
+            if (hit.transform.TryGetComponent(out ClearCounter counter))
+            {
+                if (counter != selectedCounter)
+                {
+                    selectedCounter = counter;
+                    OnSelectedCounterChanged?.Invoke(selectedCounter);
+                }
+            }
+            else
+            {
+                SetSelectedCounterNull();
+            }
+        }
+        else
+        {
+            SetSelectedCounterNull();
+        }
+    }
+
+    private void SetSelectedCounterNull()
+    {
+        if (selectedCounter != null)
+        {
+            selectedCounter = null;
+            OnSelectedCounterChanged?.Invoke(null);
         }
     }
 }
