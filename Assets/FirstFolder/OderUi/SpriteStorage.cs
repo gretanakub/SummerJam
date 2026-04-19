@@ -58,18 +58,6 @@ public class SpriteStorage : MonoBehaviour
     }
 
     // Just for testing, you can remove this later
-    private IEnumerator Start()
-    {
-        OrderManager.Instance.SpawnOder(GetSprite("Aurora"), 6,45, GetSprite("Sorcerer's Shoes"), GetSprite("Ludden"), GetSprite("Stormsurge"), GetSprite("ShadowFlame"), GetSprite("Rabadon"), GetSprite("Void Staff"));
-        yield return new WaitForSeconds(1f);
-        OrderManager.Instance.SpawnOder(GetSprite("Aurora"), 5, 45, GetSprite("Sorcerer's Shoes"), GetSprite("Ludden"), GetSprite("Stormsurge"), GetSprite("ShadowFlame"), GetSprite("Rabadon"), GetSprite("Void Staff"));
-        yield return new WaitForSeconds(1f);
-        OrderManager.Instance.SpawnOder(GetSprite("Aurora"), 4, 45, GetSprite("Sorcerer's Shoes"), GetSprite("Ludden"), GetSprite("Stormsurge"), GetSprite("ShadowFlame"), GetSprite("Rabadon"), GetSprite("Void Staff"));
-        yield return new WaitForSeconds(1f);
-        OrderManager.Instance.SpawnOder(GetSprite("Aurora"), 3, 45, GetSprite("Sorcerer's Shoes"), GetSprite("Ludden"), GetSprite("Stormsurge"), GetSprite("ShadowFlame"), GetSprite("Rabadon"), GetSprite("Void Staff"));
-        yield return new WaitForSeconds(1f);
-        OrderManager.Instance.SpawnOder(GetSprite("Aurora"), 2, 45, GetSprite("Sorcerer's Shoes"), GetSprite("Ludden"), GetSprite("Stormsurge"), GetSprite("ShadowFlame"), GetSprite("Rabadon"), GetSprite("Void Staff"));
 
-    }
 }
 //SpawnOder( MenuSprite , ????????????{int} , ????{float}(??????????? Default = 15) ,Sprite{1},Sprite{2},Sprite{3},...{?????????????????? ????????})
