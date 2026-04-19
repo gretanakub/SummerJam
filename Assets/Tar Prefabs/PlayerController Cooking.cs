@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 
-public class PlayerController : MonoBehaviour, IKitchenObjectParent
+public class PlayerControllerCooking : MonoBehaviour, IKitchenObjectParent
 {
     public event Action<ClearCounter> OnSelectedCounterChanged;
 

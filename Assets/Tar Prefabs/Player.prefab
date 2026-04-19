@@ -192,6 +192,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 72b05288-4828-459e-82f8-b25a0d959f6a
     m_ActionName: 'Gameplay/Interact[/XInputControllerWindows/buttonSouth,/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3800656828987414033}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Drop
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bc89455d-b5ff-4da8-864c-ffcf270d27d3
+    m_ActionName: 'Gameplay/Drop[/Keyboard/space,/XInputControllerWindows/buttonEast]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -240,9 +256,14 @@ MonoBehaviour:
   playerRadius: 0.5
   gamepadLookSensitivity: 5
   interactDistance: 2
+  dropDistance: 1.5
   counterLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  kitchenObjectLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  kitchenObjectHoldPoint: {fileID: 498388301612308942}
 --- !u!114 &4469313863693974778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +333,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c5dda3c7cd3cf742afcade5419faeab, type: 3}
+--- !u!4 &498388301612308942 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 186457185549000874, guid: 1c5dda3c7cd3cf742afcade5419faeab, type: 3}
+  m_PrefabInstance: {fileID: 323357949642176868}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3009980683227583808 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3294758251327466532, guid: 1c5dda3c7cd3cf742afcade5419faeab, type: 3}

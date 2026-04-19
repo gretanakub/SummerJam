@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a461aa2fca814c488f41b3c390bd656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClearCounter
+  kitchenObjectSO: {fileID: 11400000, guid: d8f709462b3869848ba2998232373196, type: 2}
+  counterTopPoint: {fileID: 3247929616219266316}
 --- !u!1001 &1374291251325317282
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,6 +5,12 @@ public class KitchenObject : MonoBehaviour
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
 
     private IKitchenObjectParent kitchenObjectParent;
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     public KitchenObjectSO GetKitchenObjectSO()
     {
@@ -13,25 +19,34 @@ public class KitchenObject : MonoBehaviour
 
     public void SetKitchenObjectParent(IKitchenObjectParent parent)
     {
-        // ถ้ามี parent เดิมอยู่ให้ clear ออกก่อน
         if (kitchenObjectParent != null)
-        {
             kitchenObjectParent.ClearKitchenObject();
-        }
 
         kitchenObjectParent = parent;
 
-        // เช็คว่า parent มี object อื่นอยู่แล้วไหม
         if (parent.HasKitchenObject())
-        {
             Debug.LogError("Parent already has a KitchenObject!");
-        }
 
         parent.SetKitchenObject(this);
 
-        // ย้าย transform ไปอยู่บน parent
+        // ตอนถือ → Kinematic ไม่ให้ physics รบกวน
+        if (rb != null) rb.isKinematic = true;
+
         transform.parent = parent.GetKitchenObjectFollowTransform();
         transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+    }
+
+    public void Drop(Vector3 dropPosition)
+    {
+        kitchenObjectParent.ClearKitchenObject();
+        kitchenObjectParent = null;
+
+        transform.parent = null;
+        transform.position = dropPosition;
+
+        // ตอน drop → เปิด physics ให้ตกพื้น
+        if (rb != null) rb.isKinematic = false;
     }
 
     public IKitchenObjectParent GetKitchenObjectParent()
@@ -45,7 +60,6 @@ public class KitchenObject : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // Spawn KitchenObject แล้วส่งคืน reference
     public static KitchenObject SpawnKitchenObject(KitchenObjectSO kitchenObjectSO, IKitchenObjectParent parent)
     {
         Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab);
