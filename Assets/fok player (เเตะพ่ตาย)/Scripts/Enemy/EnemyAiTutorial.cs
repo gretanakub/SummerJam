@@ -1,40 +1,52 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAiTutorial : MonoBehaviour
 {
+    public EnemyData enemyData;
+
     public NavMeshAgent agent;
-
     public Transform player;
-
     public LayerMask whatIsGround, whatIsPlayer;
-
-    public float health;
-
-    //Patroling
-    public Vector3 walkPoint;
-    bool walkPointSet;
-    public float walkPointRange;
-
-    //Attacking
-    public float timeBetweenAttacks;
-    bool alreadyAttacked;
     public GameObject projectile;
+    public GameObject ammoDropPrefab;
+    public GameObject fruitDropPrefab;
 
-    //States
-    public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
+    private float health;
+    private bool alreadyAttacked;
+    private bool walkPointSet;
+    private Vector3 walkPoint;
+    private bool playerInSightRange, playerInAttackRange;
 
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+
+        if (enemyData != null)
+        {
+            health = enemyData.maxHealth;
+            agent.speed = enemyData.moveSpeed;
+        }
+
+        HealthSystem hp = GetComponent<HealthSystem>();
+        if (hp != null)
+            hp.onDeath.AddListener(DropItems);
     }
 
     private void Update()
     {
-        //Check for sight and attack range
+        if (player == null)
+        {
+            GameObject playerObj = GameObject.FindWithTag("Player");
+            if (playerObj != null)
+                player = playerObj.transform;
+            else
+                return; // หาไม่เจอค่อย return
+        }
+
+        float sightRange = enemyData != null ? enemyData.sightRange : 10f;
+        float attackRange = enemyData != null ? enemyData.attackRange : 3f;
+
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
@@ -50,17 +62,15 @@ public class EnemyAiTutorial : MonoBehaviour
         if (walkPointSet)
             agent.SetDestination(walkPoint);
 
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
-        //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f)
+        if ((transform.position - walkPoint).magnitude < 1f)
             walkPointSet = false;
     }
+
     private void SearchWalkPoint()
     {
-        //Calculate random point in range
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        float range = enemyData != null ? enemyData.sightRange : 10f;
+        float randomZ = Random.Range(-range, range);
+        float randomX = Random.Range(-range, range);
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
@@ -75,53 +85,59 @@ public class EnemyAiTutorial : MonoBehaviour
 
     private void AttackPlayer()
     {
-    agent.SetDestination(transform.position);
-    transform.LookAt(player);
+        agent.SetDestination(transform.position);
+        transform.LookAt(player);
 
-    if (!alreadyAttacked)
-    {
-        // Spawn กระสุนข้างหน้า Enemy แทนกลางตัว
-        Vector3 spawnPos = transform.position + transform.forward * 1.5f;
-        Rigidbody rb = Instantiate(projectile, spawnPos, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-        rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+        if (!alreadyAttacked)
+        {
+            Vector3 spawnPos = transform.position + transform.forward * 1.5f;
+            Rigidbody rb = Instantiate(projectile, spawnPos, Quaternion.identity).GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
 
-        alreadyAttacked = true;
-        Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            alreadyAttacked = true;
+            float cooldown = enemyData != null ? enemyData.attackCooldown : 1f;
+            Invoke(nameof(ResetAttack), cooldown);
+        }
     }
-    }
-    
+
     private void ResetAttack()
     {
         alreadyAttacked = false;
     }
 
-public void TakeDamage(int damage)
-{
-    health -= damage;
-
-    // เสียง Enemy โดนยิง
-    if (SoundManager.Instance != null)
-        SoundManager.Instance.PlayEnemyHit();
-
-    if (health <= 0)
+    public void TakeDamage(int damage)
     {
+        health -= damage;
+
         if (SoundManager.Instance != null)
-            SoundManager.Instance.PlayEnemyDeath();
+            SoundManager.Instance.PlayEnemyHit();
 
-        Invoke(nameof(DestroyEnemy), 0.5f);
+        if (health <= 0)
+        {
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.PlayEnemyDeath();
+        }
     }
-}
-    private void DestroyEnemy()
+
+    private void DropItems()
     {
-        Destroy(gameObject);
+        float ammoChance = enemyData != null ? enemyData.ammoDropChance : 0.5f;
+        float fruitChance = enemyData != null ? enemyData.fruitDropChance : 0.3f;
+
+        if (ammoDropPrefab != null && Random.value <= ammoChance)
+            Instantiate(ammoDropPrefab, transform.position, Quaternion.identity);
+
+        if (fruitDropPrefab != null && Random.value <= fruitChance)
+            Instantiate(fruitDropPrefab, transform.position, Quaternion.identity);
     }
 
     private void OnDrawGizmosSelected()
     {
+        if (enemyData == null) return;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, enemyData.attackRange);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.DrawWireSphere(transform.position, enemyData.sightRange);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class HealthSystem : MonoBehaviour
 {
     public int maxHealth = 100;
-    private int currentHealth;
+    public int currentHealth;
 
     public UnityEvent<float> onHealthChanged;
     public UnityEvent onDeath;
