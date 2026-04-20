@@ -4,12 +4,16 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
 
-
     [Header("เสียงยิง")]
     public AudioClip shootGun;
     public AudioClip shootMachineGun;
     public AudioClip shootShotgun;
     public AudioClip shootKatana;
+
+    [Header("เสียง Reload")]
+    public AudioClip reloadRevolver;
+    public AudioClip reloadMachineGun;
+    public AudioClip reloadShotgun;
 
     [Header("เสียงโดนดาเมจ")]
     public AudioClip playerHit;
@@ -37,22 +41,34 @@ public class SoundManager : MonoBehaviour
     public void PlayShoot(WeaponData.WeaponType weaponType)
     {
         switch (weaponType)
-        {   
+        {
             case WeaponData.WeaponType.Gun:
-                if (shootGun != null)
-                    audioSource.PlayOneShot(shootGun);
+                if (shootGun != null) audioSource.PlayOneShot(shootGun);
                 break;
             case WeaponData.WeaponType.MachineGun:
-                if (shootMachineGun != null)
-                    audioSource.PlayOneShot(shootMachineGun);
+                if (shootMachineGun != null) audioSource.PlayOneShot(shootMachineGun);
                 break;
             case WeaponData.WeaponType.Shotgun:
-                if (shootShotgun != null)
-                    audioSource.PlayOneShot(shootShotgun);
+                if (shootShotgun != null) audioSource.PlayOneShot(shootShotgun);
                 break;
             case WeaponData.WeaponType.Katana:
-                if (shootKatana != null)
-                    audioSource.PlayOneShot(shootKatana);
+                if (shootKatana != null) audioSource.PlayOneShot(shootKatana);
+                break;
+        }
+    }
+
+    public void PlayReload(WeaponData.WeaponType weaponType)
+    {
+        switch (weaponType)
+        {
+            case WeaponData.WeaponType.Gun:
+                if (reloadRevolver != null) audioSource.PlayOneShot(reloadRevolver);
+                break;
+            case WeaponData.WeaponType.MachineGun:
+                if (reloadMachineGun != null) audioSource.PlayOneShot(reloadMachineGun);
+                break;
+            case WeaponData.WeaponType.Shotgun:
+                if (reloadShotgun != null) audioSource.PlayOneShot(reloadShotgun);
                 break;
         }
     }

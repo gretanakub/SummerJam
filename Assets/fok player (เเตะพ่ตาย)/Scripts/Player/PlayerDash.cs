@@ -4,9 +4,9 @@ using System.Collections;
 
 public class PlayerDash : MonoBehaviour
 {
-    public float dashSpeed = 20f;       // ความเร็วตอน Dash
-    public float dashDuration = 0.15f;  // Dash นานแค่ไหน
-    public float dashCooldown = 2f;     // Cooldown
+    public float dashSpeed = 20f;
+    public float dashDuration = 0.15f;
+    public float dashCooldown = 2f;
 
     [Header("Trail (ใส่ TrailRenderer ถ้ามี)")]
     public TrailRenderer trailRenderer;
@@ -18,18 +18,14 @@ public class PlayerDash : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-
-        // ปิด Trail ตอนเริ่ม
         if (trailRenderer != null)
             trailRenderer.emitting = false;
     }
 
-    void Update()
+    public void OnDash(InputAction.CallbackContext context)
     {
-        if (Keyboard.current.leftShiftKey.wasPressedThisFrame && CanDash() && !isDashing)
-        {
+        if (context.phase == InputActionPhase.Started && CanDash() && !isDashing)
             StartCoroutine(DashCoroutine());
-        }
     }
 
     bool CanDash()
@@ -44,7 +40,6 @@ public class PlayerDash : MonoBehaviour
 
         Vector3 dashDirection = transform.forward;
 
-        // เปิด Trail
         if (trailRenderer != null)
             trailRenderer.emitting = true;
 
@@ -56,7 +51,6 @@ public class PlayerDash : MonoBehaviour
             yield return null;
         }
 
-        // ปิด Trail
         if (trailRenderer != null)
             trailRenderer.emitting = false;
 

@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: WPN_MachineGun
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  maxAmmo: 120
+  ammoPerPickup: 300
+  magazineSize: 30
+  reloadTime: 2.5
   weaponName: Machine Gun
   weaponType: 0
   damage: 10

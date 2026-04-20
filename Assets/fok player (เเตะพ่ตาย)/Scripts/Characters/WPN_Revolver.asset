@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea138e3e847156429df7ba6fbb86b2a, type: 3}
   m_Name: WPN_Revolver
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  maxAmmo: 18
+  ammoPerPickup: 6
+  magazineSize: 6
+  reloadTime: 2
   weaponName: Revolver
   weaponType: 0
   damage: 100
