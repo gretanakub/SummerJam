@@ -49,6 +49,7 @@ public class OrderManager : MonoBehaviour
         StartCoroutine(RunTimer(obj, bar, duration));
     }
 
+
     // ── Coroutine: นับถอยหลังของแต่ละ Order ──────────────
     private IEnumerator RunTimer(GameObject obj, Image bar, float duration)
     {
