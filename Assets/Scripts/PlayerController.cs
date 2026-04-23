@@ -4,7 +4,7 @@ using System;
 
 public class PlayerController : MonoBehaviour, IKitchenObjectParent
 {
-    public event Action<ClearCounter> OnSelectedCounterChanged;
+    public event Action<ICounter> OnSelectedCounterChanged;
 
     [SerializeField] private float speed = 5f;
     [SerializeField] private float rotateSpeed = 10f;
@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     [SerializeField] private float interactDistance = 2f;
     [SerializeField] private float dropDistance = 1.5f;
     [SerializeField] private LayerMask counterLayerMask;
-    [SerializeField] private LayerMask kitchenObjectLayerMask; // Layer ของ KitchenObject
+    [SerializeField] private LayerMask kitchenObjectLayerMask;
     [SerializeField] private Transform kitchenObjectHoldPoint;
 
     private CharacterController controller;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     private Camera mainCamera;
     private bool isGamepad = false;
     private Vector3 lastGamepadLookDir = Vector3.forward;
-    private ClearCounter selectedCounter;
+    private ICounter selectedCounter;
     private KitchenObject kitchenObject;
 
     void Awake()
@@ -44,22 +44,24 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     {
         if (context.phase == InputActionPhase.Started)
         {
-            // ถ้ามอง counter อยู่
             if (selectedCounter != null)
-            {
                 selectedCounter.Interact(this);
-            }
-            // ถ้าไม่ได้มอง counter → หยิบของจากพื้น
             else if (!HasKitchenObject())
-            {
                 TryPickUpFromGround();
-            }
+        }
+    }
+
+    public void Drop(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (HasKitchenObject())
+                DropKitchenObject();
         }
     }
 
     private void TryPickUpFromGround()
     {
-        // Raycast หา KitchenObject รอบๆ ตัว player
         Collider[] colliders = Physics.OverlapSphere(
             transform.position,
             interactDistance,
@@ -68,7 +70,6 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
 
         if (colliders.Length > 0)
         {
-            // หา KitchenObject ที่ใกล้ที่สุด
             KitchenObject nearest = null;
             float nearestDistance = float.MaxValue;
 
@@ -76,7 +77,6 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
             {
                 if (col.TryGetComponent(out KitchenObject obj))
                 {
-                    // เช็คว่าของนั้นไม่ได้ถูกถือโดยใครอยู่
                     if (obj.GetKitchenObjectParent() == null)
                     {
                         float dist = Vector3.Distance(transform.position, col.transform.position);
@@ -90,18 +90,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
             }
 
             if (nearest != null)
-            {
                 nearest.SetKitchenObjectParent(this);
-            }
-        }
-    }
-
-    public void Drop(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started)
-        {
-            if (HasKitchenObject())
-                DropKitchenObject();
         }
     }
 
@@ -110,15 +99,13 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         Vector3 dropPosition = transform.position + transform.forward * dropDistance;
 
         if (Physics.Raycast(dropPosition + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 5f))
-        {
             dropPosition = hit.point + Vector3.up * 0.5f;
-        }
 
         kitchenObject.Drop(dropPosition);
         kitchenObject = null;
     }
 
-    public ClearCounter GetSelectedCounter() => selectedCounter;
+    public ICounter GetSelectedCounter() => selectedCounter;
 
     // IKitchenObjectParent
     public Transform GetKitchenObjectFollowTransform() => kitchenObjectHoldPoint;
@@ -232,7 +219,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
             interactDistance,
             counterLayerMask))
         {
-            if (hit.transform.TryGetComponent(out ClearCounter counter))
+            if (hit.transform.TryGetComponent(out ICounter counter))
             {
                 if (counter != selectedCounter)
                 {
