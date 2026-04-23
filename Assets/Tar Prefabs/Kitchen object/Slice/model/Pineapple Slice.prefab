@@ -1,0 +1,237 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &399233508149096740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5907114405682376163}
+  m_Layer: 0
+  m_Name: Pineapple Slice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5907114405682376163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399233508149096740}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9, y: 0, z: 8.55545}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 105001354283557029}
+  - {fileID: 3153804710574970665}
+  - {fileID: 4210811888207996873}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &504318846341793614
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5907114405682376163}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.3996806
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.012458377
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.59337425
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_Name
+      value: Pineapple slice
+      objectReference: {fileID: 0}
+    - target: {fileID: 3920036361701239537, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7bcc56f13ee97f64e9efddaf0c6d7eea, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: -761392958045987157, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+--- !u!4 &105001354283557029 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+  m_PrefabInstance: {fileID: 504318846341793614}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3192535166807126210
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5907114405682376163}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.2989998
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.058
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.69745064
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_Name
+      value: Pineapple slice (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3920036361701239537, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7bcc56f13ee97f64e9efddaf0c6d7eea, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: -761392958045987157, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+--- !u!4 &3153804710574970665 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+  m_PrefabInstance: {fileID: 3192535166807126210}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4460101191843201058
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5907114405682376163}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5209999
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.131
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.49645042
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9999744
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0071558314
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_Name
+      value: Pineapple slice (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3920036361701239537, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7bcc56f13ee97f64e9efddaf0c6d7eea, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: -761392958045987157, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+--- !u!4 &4210811888207996873 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+  m_PrefabInstance: {fileID: 4460101191843201058}
+  m_PrefabAsset: {fileID: 0}

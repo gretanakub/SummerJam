@@ -51,6 +51,15 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         }
     }
 
+    public void InteractAlternate(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (selectedCounter != null && selectedCounter is CuttingCounter cuttingCounter)
+                cuttingCounter.InteractAlternate(this);
+        }
+    }
+
     public void Drop(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
