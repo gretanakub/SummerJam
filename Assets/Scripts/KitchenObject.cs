@@ -28,7 +28,6 @@ public class KitchenObject : MonoBehaviour
 
         if (rb != null) rb.isKinematic = true;
 
-        // ปิด Collider ตอนถือ ไม่ให้ชน player
         if (TryGetComponent(out KitchenObjectCollision col))
             col.SetColliderActive(false);
 
@@ -47,7 +46,6 @@ public class KitchenObject : MonoBehaviour
 
         if (rb != null) rb.isKinematic = false;
 
-        // เปิด Collider ตอน drop
         if (TryGetComponent(out KitchenObjectCollision col))
             col.SetColliderActive(true);
     }
@@ -62,6 +60,29 @@ public class KitchenObject : MonoBehaviour
 
     public static KitchenObject SpawnKitchenObject(KitchenObjectSO kitchenObjectSO, IKitchenObjectParent parent)
     {
+        Debug.Log("SpawnKitchenObject called");
+        Debug.Log("kitchenObjectSO = " + kitchenObjectSO);
+        Debug.Log("kitchenObjectSO.prefab = " + kitchenObjectSO?.prefab);
+        Debug.Log("parent = " + parent);
+
+        if (kitchenObjectSO == null)
+        {
+            Debug.LogError("kitchenObjectSO is NULL!");
+            return null;
+        }
+
+        if (kitchenObjectSO.prefab == null)
+        {
+            Debug.LogError("prefab in kitchenObjectSO is NULL!");
+            return null;
+        }
+
+        if (parent == null)
+        {
+            Debug.LogError("parent is NULL!");
+            return null;
+        }
+
         Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab);
         KitchenObject kitchenObject = kitchenObjectTransform.GetComponent<KitchenObject>();
         kitchenObject.SetKitchenObjectParent(parent);

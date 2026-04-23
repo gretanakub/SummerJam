@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8447115461691645297}
   - component: {fileID: 8416508962427848299}
   - component: {fileID: -585614161060564975}
+  - component: {fileID: -8226273504767716630}
   m_Layer: 7
   m_Name: orange
   m_TagString: Untagged
@@ -111,6 +112,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectPushable
   pushForce: 3
   torqueForce: 2
+--- !u!114 &-8226273504767716630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52118148395110323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a45d8586f5b932d439dff9dcaad46810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectCollision
 --- !u!1001 &1845302282915495102
 PrefabInstance:
   m_ObjectHideFlags: 0

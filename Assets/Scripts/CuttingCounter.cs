@@ -1,26 +1,34 @@
 using UnityEngine;
+using System;
 
 public class CuttingCounter : MonoBehaviour, IKitchenObjectParent, ICounter
 {
-    [SerializeField] private CuttingRecipeSO[] cuttingRecipeSOArray; // recipe ทั้งหมด
+    public event Action<float> OnCuttingProgressChanged; // ส่งค่า 0-1 ให้ UI
+
+    [SerializeField] private CuttingRecipeSO[] cuttingRecipeSOArray;
     [SerializeField] private Transform counterTopPoint;
 
     private KitchenObject kitchenObject;
     private int cuttingProgress;
+    private int cuttingProgressMax;
 
     public void Interact(PlayerController player)
     {
         if (!HasKitchenObject())
         {
-            // Counter ว่าง
             if (player.HasKitchenObject())
             {
-                // เช็คว่าของที่ถืออยู่หั่นได้ไหม
                 if (HasRecipeWithInput(player.GetKitchenObject().GetKitchenObjectSO()))
                 {
-                    // วางของลง counter แล้ว reset progress
                     player.GetKitchenObject().SetKitchenObjectParent(this);
                     cuttingProgress = 0;
+
+                    // หา max จาก recipe
+                    CuttingRecipeSO recipe = GetRecipeWithInput(kitchenObject.GetKitchenObjectSO());
+                    cuttingProgressMax = recipe.cuttingProgressMax;
+
+                    // อัพเดท UI เป็น 0
+                    OnCuttingProgressChanged?.Invoke(0f);
                 }
                 else
                 {
@@ -30,11 +38,12 @@ public class CuttingCounter : MonoBehaviour, IKitchenObjectParent, ICounter
         }
         else
         {
-            // Counter มีของอยู่
             if (!player.HasKitchenObject())
             {
-                // หยิบของจาก counter
                 kitchenObject.SetKitchenObjectParent(player);
+
+                // Reset UI เป็น 0 ตอนหยิบออก
+                OnCuttingProgressChanged?.Invoke(0f);
             }
             else
             {
@@ -45,20 +54,25 @@ public class CuttingCounter : MonoBehaviour, IKitchenObjectParent, ICounter
 
     public void InteractAlternate(PlayerController player)
     {
-        // กด alternate (F / Button West) เพื่อหั่น
         if (HasKitchenObject() && HasRecipeWithInput(kitchenObject.GetKitchenObjectSO()))
         {
             cuttingProgress++;
+
+            // อัพเดท progress bar (0-1)
+            float progressNormalized = (float)cuttingProgress / cuttingProgressMax;
+            OnCuttingProgressChanged?.Invoke(progressNormalized);
 
             CuttingRecipeSO recipe = GetRecipeWithInput(kitchenObject.GetKitchenObjectSO());
 
             if (cuttingProgress >= recipe.cuttingProgressMax)
             {
-                // หั่นครบแล้ว → เปลี่ยนเป็น output
                 KitchenObjectSO outputSO = recipe.output;
                 kitchenObject.DestroySelf();
                 KitchenObject.SpawnKitchenObject(outputSO, this);
                 cuttingProgress = 0;
+
+                // Reset UI หลังหั่นเสร็จ
+                OnCuttingProgressChanged?.Invoke(0f);
             }
         }
     }
