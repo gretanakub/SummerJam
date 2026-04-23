@@ -4,10 +4,10 @@ public class CharacterSelector : MonoBehaviour
 {
     public static CharacterSelector Instance;
     public CharacterData selectedCharacter;
+    public CharacterData[] allSelectedCharacters;
 
     void Awake()
     {
-        // ไม่ให้ถูกทำลายตอนเปลี่ยน Scene
         if (Instance == null)
         {
             Instance = this;
@@ -22,5 +22,17 @@ public class CharacterSelector : MonoBehaviour
     public void SelectCharacter(CharacterData data)
     {
         selectedCharacter = data;
+    }
+
+    public void SetAllCharacters(CharacterData[] characters)
+    {
+        allSelectedCharacters = characters;
+    }
+
+    public CharacterData GetCharacterForPlayer(int playerIndex)
+    {
+        if (allSelectedCharacters != null && playerIndex < allSelectedCharacters.Length)
+            return allSelectedCharacters[playerIndex];
+        return null;
     }
 }

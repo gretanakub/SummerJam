@@ -17,11 +17,11 @@ GameObject:
   - component: {fileID: 580685020570121806}
   - component: {fileID: 2498568820508045462}
   - component: {fileID: 4706050345981930298}
-  - component: {fileID: 6352397265543335739}
   - component: {fileID: 3231011247492200327}
   - component: {fileID: 8204661674344591109}
   - component: {fileID: 252779442970426920}
   - component: {fileID: 9154952876981624769}
+  - component: {fileID: 5227763854687696790}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -324,26 +324,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2454970896217109628, guid: 176de26fcc9fe7d468d760d6f465d8b9, type: 3}
   firePoint: {fileID: 6395256011019470987}
   fireRate: 0.2
---- !u!114 &6352397265543335739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1182794715435199128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e54740d009a9ef4469cadd631cd83123, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
-  maxHealth: 100
-  currentHealth: 0
-  onHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &3231011247492200327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,6 +390,26 @@ MonoBehaviour:
   reserveAmmo: 0
   isReloading: 0
   onAmmoChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &5227763854687696790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182794715435199128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e1e9ae0ccf1ead498a5a7974dcc3b48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthSystem
+  maxHearts: 3
+  currentHearts: 0
+  onHeartsChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1199742024794565983
