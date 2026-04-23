@@ -9,7 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5907114405682376163}
-  m_Layer: 0
+  - component: {fileID: 7692100981100781019}
+  - component: {fileID: 8695305819450665202}
+  - component: {fileID: 8236302265972918296}
+  - component: {fileID: -8920131897396255383}
+  - component: {fileID: 394591745521274696}
+  m_Layer: 7
   m_Name: Pineapple Slice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 399233508149096740}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9, y: 0, z: 8.55545}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34,6 +39,93 @@ Transform:
   - {fileID: 4210811888207996873}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7692100981100781019
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399233508149096740}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.94521093, y: 0.22, z: 0.9456781}
+  m_Center: {x: 0, y: 0.1, z: 0}
+--- !u!54 &8695305819450665202
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399233508149096740}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &8236302265972918296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399233508149096740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 520c13cc9cf7d014b87960c8b3ed7378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObject
+  kitchenObjectSO: {fileID: 11400000, guid: 54496cc1afa4a294f908d85529a7e322, type: 2}
+--- !u!114 &-8920131897396255383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399233508149096740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a45d8586f5b932d439dff9dcaad46810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectCollision
+--- !u!114 &394591745521274696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399233508149096740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4024efef50814c64c9043f7401fcb5a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectPushable
+  pushForce: 3
+  torqueForce: 2
 --- !u!1001 &504318846341793614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44,15 +136,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.3996806
+      value: 1.602
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.012458377
+      value: 0.016
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.59337425
+      value: -0.013
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -86,10 +178,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pineapple slice
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3920036361701239537, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 7bcc56f13ee97f64e9efddaf0c6d7eea, type: 2}
+    - target: {fileID: 4728504340895499882, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -761392958045987157, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
@@ -111,15 +211,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.2989998
+      value: 1.5013192
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.058
+      value: 0.061541624
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.69745064
+      value: -0.11707638
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -153,10 +253,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pineapple slice (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3920036361701239537, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 7bcc56f13ee97f64e9efddaf0c6d7eea, type: 2}
+    - target: {fileID: 4728504340895499882, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -761392958045987157, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
@@ -178,15 +286,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5209999
+      value: 1.7233193
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.131
+      value: 0.13454162
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.49645042
+      value: 0.08392383
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -220,10 +328,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pineapple slice (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3920036361701239537, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 7bcc56f13ee97f64e9efddaf0c6d7eea, type: 2}
+    - target: {fileID: 4728504340895499882, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -761392958045987157, guid: 510cadda82a0fae4c80b2ea8f3c12e6a, type: 3}
