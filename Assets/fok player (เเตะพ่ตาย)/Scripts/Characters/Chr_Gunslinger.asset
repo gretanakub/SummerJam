@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c62c9d2e1f3bd4aa6e666f9a89f234, type: 3}
+  m_Name: Chr_Gunslinger
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterName: Gunslinger
+  portrait: {fileID: 21300000, guid: ae41a543fb858954ab04906a4cdc5bde, type: 3}
+  maxHealth: 100
+  moveSpeed: 5
+  dashDistance: 5
+  dashCooldown: 2
+  weapon: {fileID: 11400000, guid: b6407c569fade0d4fa9ae6bea271a014, type: 2}
+  hatPrefab: {fileID: 0}

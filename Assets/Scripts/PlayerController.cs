@@ -1,13 +1,21 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IKitchenObjectParent
 {
+    public event Action<ICounter> OnSelectedCounterChanged;
+
     [SerializeField] private float speed = 5f;
     [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private float playerHeight = 2f;
     [SerializeField] private float playerRadius = 0.5f;
     [SerializeField] private float gamepadLookSensitivity = 5f;
+    [SerializeField] private float interactDistance = 2f;
+    [SerializeField] private float dropDistance = 1.5f;
+    [SerializeField] private LayerMask counterLayerMask;
+    [SerializeField] private LayerMask kitchenObjectLayerMask;
+    [SerializeField] private Transform kitchenObjectHoldPoint;
 
     private CharacterController controller;
     private Vector2 moveInput;
@@ -15,6 +23,8 @@ public class PlayerController : MonoBehaviour
     private Camera mainCamera;
     private bool isGamepad = false;
     private Vector3 lastGamepadLookDir = Vector3.forward;
+    private ICounter selectedCounter;
+    private KitchenObject kitchenObject;
 
     void Awake()
     {
@@ -26,15 +36,89 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = context.ReadValue<Vector2>();
 
-      
         if (context.phase != InputActionPhase.Canceled)
             isGamepad = context.control.device is Gamepad;
     }
+
+    public void Interact(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (selectedCounter != null)
+                selectedCounter.Interact(this);
+            else if (!HasKitchenObject())
+                TryPickUpFromGround();
+        }
+    }
+
+    public void Drop(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (HasKitchenObject())
+                DropKitchenObject();
+        }
+    }
+
+    private void TryPickUpFromGround()
+    {
+        Collider[] colliders = Physics.OverlapSphere(
+            transform.position,
+            interactDistance,
+            kitchenObjectLayerMask
+        );
+
+        if (colliders.Length > 0)
+        {
+            KitchenObject nearest = null;
+            float nearestDistance = float.MaxValue;
+
+            foreach (Collider col in colliders)
+            {
+                if (col.TryGetComponent(out KitchenObject obj))
+                {
+                    if (obj.GetKitchenObjectParent() == null)
+                    {
+                        float dist = Vector3.Distance(transform.position, col.transform.position);
+                        if (dist < nearestDistance)
+                        {
+                            nearestDistance = dist;
+                            nearest = obj;
+                        }
+                    }
+                }
+            }
+
+            if (nearest != null)
+                nearest.SetKitchenObjectParent(this);
+        }
+    }
+
+    private void DropKitchenObject()
+    {
+        Vector3 dropPosition = transform.position + transform.forward * dropDistance;
+
+        if (Physics.Raycast(dropPosition + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 5f))
+            dropPosition = hit.point + Vector3.up * 0.5f;
+
+        kitchenObject.Drop(dropPosition);
+        kitchenObject = null;
+    }
+
+    public ICounter GetSelectedCounter() => selectedCounter;
+
+    // IKitchenObjectParent
+    public Transform GetKitchenObjectFollowTransform() => kitchenObjectHoldPoint;
+    public void SetKitchenObject(KitchenObject obj) => kitchenObject = obj;
+    public KitchenObject GetKitchenObject() => kitchenObject;
+    public void ClearKitchenObject() => kitchenObject = null;
+    public bool HasKitchenObject() => kitchenObject != null;
 
     void Update()
     {
         HandleMovement();
         HandleRotation();
+        HandleInteract();
     }
 
     private void HandleMovement()
@@ -92,15 +176,12 @@ public class PlayerController : MonoBehaviour
     {
         if (isGamepad)
         {
-           
             Vector2 rightStick = Gamepad.current != null
                 ? Gamepad.current.rightStick.ReadValue()
                 : Vector2.zero;
 
             if (rightStick.magnitude > 0.1f)
-            {
                 lastGamepadLookDir = new Vector3(rightStick.x, 0, rightStick.y).normalized;
-            }
 
             transform.forward = Vector3.Slerp(
                 transform.forward,
@@ -126,6 +207,43 @@ public class PlayerController : MonoBehaviour
                     );
                 }
             }
+        }
+    }
+
+    private void HandleInteract()
+    {
+        if (Physics.Raycast(
+            transform.position,
+            transform.forward,
+            out RaycastHit hit,
+            interactDistance,
+            counterLayerMask))
+        {
+            if (hit.transform.TryGetComponent(out ICounter counter))
+            {
+                if (counter != selectedCounter)
+                {
+                    selectedCounter = counter;
+                    OnSelectedCounterChanged?.Invoke(selectedCounter);
+                }
+            }
+            else
+            {
+                SetSelectedCounterNull();
+            }
+        }
+        else
+        {
+            SetSelectedCounterNull();
+        }
+    }
+
+    private void SetSelectedCounterNull()
+    {
+        if (selectedCounter != null)
+        {
+            selectedCounter = null;
+            OnSelectedCounterChanged?.Invoke(null);
         }
     }
 }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea138e3e847156429df7ba6fbb86b2a, type: 3}
+  m_Name: WPN_Katana
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  maxAmmo: 0
+  ammoPerPickup: 0
+  weaponName: 
+  weaponType: 3
+  damage: 50
+  fireRate: 0.5
+  bulletSpeed: 100
+  bulletCount: 0
+  spreadAngle: 0
+  attackRange: 0
+  bulletPrefab: {fileID: 2454970896217109628, guid: 176de26fcc9fe7d468d760d6f465d8b9, type: 3}
+  weaponModelPrefab: {fileID: 0}
