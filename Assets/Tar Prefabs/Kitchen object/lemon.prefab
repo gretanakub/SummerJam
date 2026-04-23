@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -4114094155712054570}
   - component: {fileID: 8358543827758175031}
   - component: {fileID: -2048893430893336470}
+  - component: {fileID: 3569844604237910617}
   m_Layer: 7
   m_Name: lemon
   m_TagString: Untagged
@@ -111,6 +112,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectPushable
   pushForce: 3
   torqueForce: 2
+--- !u!114 &3569844604237910617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780591298735191103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a45d8586f5b932d439dff9dcaad46810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectCollision
 --- !u!1001 &4774183971834657828
 PrefabInstance:
   m_ObjectHideFlags: 0
