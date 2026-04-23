@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2541159df30e26741a5feea2242f0645, type: 3}
   m_Name: Cup
   m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectSO
-  prefab: {fileID: 0}
+  prefab: {fileID: 1367033839675405801, guid: 9410abb07c898e448930482feadc10cf, type: 3}
   icon: {fileID: 0}
   objectName: CupOfIce
