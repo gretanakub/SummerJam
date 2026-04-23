@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 943c75b67e6c4e141a872417ff40c15d, type: 3}
   m_Name: Enem_ Watermelon
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  enemyName: 
+  enemyName: Watermelon
   enemyPrefab: {fileID: 0}
   maxHealth: 100
   moveSpeed: 5
   damage: 10
-  attackRange: 3
+  attackRange: 10
   sightRange: 10
-  attackCooldown: 1
+  attackCooldown: 3
   ammoDropChance: 0.5
-  fruitDropChance: 0.3
+  fruitDropChance: 1
   ammoDropAmount: 10

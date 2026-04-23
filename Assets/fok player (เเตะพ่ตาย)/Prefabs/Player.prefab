@@ -369,9 +369,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 711b527449834ed44ae8a786b40db8be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSetup
-  hatPoint: {fileID: 970248785596120649}
   handPoint: {fileID: 4844519842726959289}
-  defaultCharacter: {fileID: 11400000, guid: 3e74add5a12b74d47a6c90b5ae0be662, type: 2}
+  defaultCharacter: {fileID: 0}
+  playerIndex: 0
 --- !u!114 &9154952876981624769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,7 +563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3294758251327466535, guid: 1c5dda3c7cd3cf742afcade5419faeab, type: 3}
       propertyPath: m_Name
-      value: PlayerVisual
+      value: ModelPoint
       objectReference: {fileID: 0}
     - target: {fileID: 3294758251327466535, guid: 1c5dda3c7cd3cf742afcade5419faeab, type: 3}
       propertyPath: m_Layer

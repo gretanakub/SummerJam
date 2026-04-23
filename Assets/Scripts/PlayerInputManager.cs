@@ -51,10 +51,20 @@ public class PlayerInputManager : MonoBehaviour
 
     void SetupPlayer(GameObject player, int index)
     {
-        if (CharacterSelector.Instance == null) return;
+        if (CharacterSelector.Instance == null)
+        {
+            Debug.LogError("CharacterSelector.Instance เป็น NULL!");
+            return;
+        }
 
         CharacterData data = CharacterSelector.Instance.GetCharacterForPlayer(index);
+        Debug.Log($"SetupPlayer index {index} ได้ character: {(data != null ? data.characterName : "NULL")}");
+
         if (data == null) return;
+
+        PlayerSetup setup = player.GetComponent<PlayerSetup>();
+        if (setup != null)
+            setup.playerIndex = index;
 
         WeaponSystem weapon = player.GetComponent<WeaponSystem>();
         if (weapon != null && data.weapon != null)
@@ -65,6 +75,29 @@ public class PlayerInputManager : MonoBehaviour
         {
             health.maxHearts = data.maxHearts;
             health.currentHearts = data.maxHearts;
+        }
+
+        if (data.characterModelPrefab != null)
+        {
+            Transform modelPoint = player.transform.Find("ModelPoint");
+            Debug.Log($"ModelPoint: {(modelPoint != null ? "พบแล้ว" : "ไม่พบ!")}");
+            if (modelPoint != null)
+            {
+                foreach (Transform child in modelPoint)
+                    Destroy(child.gameObject);
+                Instantiate(data.characterModelPrefab, modelPoint);
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"{data.characterName}: ไม่มี characterModelPrefab!");
+        }
+
+        if (data.weapon != null && data.weapon.weaponModelPrefab != null)
+        {
+            Transform handPoint = player.transform.Find("HandPoint");
+            if (handPoint != null)
+                Instantiate(data.weapon.weaponModelPrefab, handPoint);
         }
     }
 }

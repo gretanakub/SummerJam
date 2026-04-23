@@ -12,4 +12,5 @@ public class CharacterData : ScriptableObject
 
     public WeaponData weapon;
     public GameObject hatPrefab;
+    public GameObject characterModelPrefab;
 }
