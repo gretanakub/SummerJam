@@ -12,10 +12,7 @@ public class KitchenObject : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    public KitchenObjectSO GetKitchenObjectSO()
-    {
-        return kitchenObjectSO;
-    }
+    public KitchenObjectSO GetKitchenObjectSO() => kitchenObjectSO;
 
     public void SetKitchenObjectParent(IKitchenObjectParent parent)
     {
@@ -29,8 +26,11 @@ public class KitchenObject : MonoBehaviour
 
         parent.SetKitchenObject(this);
 
-        // ตอนถือ → Kinematic ไม่ให้ physics รบกวน
         if (rb != null) rb.isKinematic = true;
+
+        // ปิด Collider ตอนถือ ไม่ให้ชน player
+        if (TryGetComponent(out KitchenObjectCollision col))
+            col.SetColliderActive(false);
 
         transform.parent = parent.GetKitchenObjectFollowTransform();
         transform.localPosition = Vector3.zero;
@@ -45,14 +45,14 @@ public class KitchenObject : MonoBehaviour
         transform.parent = null;
         transform.position = dropPosition;
 
-        // ตอน drop → เปิด physics ให้ตกพื้น
         if (rb != null) rb.isKinematic = false;
+
+        // เปิด Collider ตอน drop
+        if (TryGetComponent(out KitchenObjectCollision col))
+            col.SetColliderActive(true);
     }
 
-    public IKitchenObjectParent GetKitchenObjectParent()
-    {
-        return kitchenObjectParent;
-    }
+    public IKitchenObjectParent GetKitchenObjectParent() => kitchenObjectParent;
 
     public void DestroySelf()
     {
