@@ -1781,6 +1781,12 @@ MonoBehaviour:
   - {fileID: 197552964}
   - {fileID: 1189784827}
   - {fileID: 1471570420}
+  characterButtons:
+  - {fileID: 1331649991}
+  - {fileID: 1143379026}
+  - {fileID: 1026707083}
+  - {fileID: 487273395}
+  playerTurnText: {fileID: 0}
 --- !u!114 &1706437924
 MonoBehaviour:
   m_ObjectHideFlags: 0

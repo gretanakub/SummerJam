@@ -8,7 +8,7 @@ public class HUDManager : MonoBehaviour
     public class PlayerHUD
     {
         public GameObject panel;
-        public Slider hpBar;
+        public TextMeshProUGUI heartsText;
         public TextMeshProUGUI playerName;
         public TextMeshProUGUI ammoText;
     }
@@ -54,21 +54,20 @@ public class HUDManager : MonoBehaviour
                             playerHUDs[index].ammoText.text = $"{current} / {reserve}";
                     });
 
-                    // แสดงค่าเริ่มต้น magazine / reserve
                     if (weapon.weaponData != null)
                         playerHUDs[i].ammoText.text = $"{weapon.currentAmmo} / {weapon.reserveAmmo}";
                 }
 
-                HealthSystem hp = players[i].GetComponent<HealthSystem>();
+                PlayerHealthSystem hp = players[i].GetComponent<PlayerHealthSystem>();
                 if (hp != null)
                 {
                     int index = i;
-                    hp.onHealthChanged.AddListener((value) =>
+                    hp.onHeartsChanged.AddListener((hearts) =>
                     {
-                        playerHUDs[index].hpBar.value = value;
+                        UpdateHearts(index, hearts, hp.maxHearts);
                     });
 
-                    playerHUDs[i].hpBar.value = hp.GetHealthPercent();
+                    UpdateHearts(i, hp.currentHearts, hp.maxHearts);
                 }
 
                 hudInitialized[i] = true;
@@ -77,5 +76,16 @@ public class HUDManager : MonoBehaviour
 
         for (int i = players.Length; i < playerHUDs.Length; i++)
             playerHUDs[i].panel.SetActive(false);
+    }
+
+    void UpdateHearts(int playerIndex, int hearts, int maxHearts)
+    {
+        if (playerHUDs[playerIndex].heartsText == null) return;
+
+        string display = "";
+        for (int i = 0; i < maxHearts; i++)
+            display += i < hearts ? "O " : "X ";
+
+        playerHUDs[playerIndex].heartsText.text = display;
     }
 }

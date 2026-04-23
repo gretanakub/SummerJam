@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Commando
   portrait: {fileID: 21300000, guid: 563af075d02058040bf2f9a6b1927699, type: 3}
-  maxHealth: 80
+  maxHearts: 3
   moveSpeed: 5.5
   dashDistance: 7
   dashCooldown: 1

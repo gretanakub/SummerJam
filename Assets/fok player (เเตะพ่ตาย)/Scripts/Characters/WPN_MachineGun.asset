@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 2ea138e3e847156429df7ba6fbb86b2a, type: 3}
   m_Name: WPN_MachineGun
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   maxAmmo: 120
-  ammoPerPickup: 300
+  ammoPerPickup: 30
   magazineSize: 30
-  reloadTime: 2.5
+  reloadTime: 1.5
   weaponName: Machine Gun
-  weaponType: 0
+  weaponType: 2
   damage: 10
   fireRate: 0.1
-  bulletSpeed: 25
+  bulletSpeed: 20
   bulletCount: 1
   spreadAngle: 5
   attackRange: 0

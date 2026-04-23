@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2541159df30e26741a5feea2242f0645, type: 3}
   m_Name: Pineapple
   m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectSO
-  prefab: {fileID: 0}
-  icon: {fileID: 0}
-  objectName: 
+  prefab: {fileID: 5341621536795724898, guid: c237081264d1755429792699346a289b, type: 3}
+  icon: {fileID: 21300000, guid: cc1411ea75c485345a83e5c0063e4917, type: 3}
+  objectName: Pineapple
