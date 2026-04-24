@@ -17,9 +17,10 @@ MonoBehaviour:
   maxHealth: 100
   moveSpeed: 5
   damage: 10
-  attackRange: 3
+  attackRange: 5
   sightRange: 10
   attackCooldown: 1
   ammoDropChance: 0.5
   fruitDropChance: 1
+  healthBottleDropChance: 1
   ammoDropAmount: 10
