@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: B7
   m_EditorClassIdentifier: Assembly-CSharp::BlenderRecipeSO
   inputArray: []
-  output: {fileID: 0}
+  output: {fileID: 11400000, guid: 64992ea367b012740af275d8308d662d, type: 2}
