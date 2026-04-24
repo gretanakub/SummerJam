@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     public event Action<ICounter> OnSelectedCounterChanged;
 
     [SerializeField] private float speed = 5f;
+    [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private float playerHeight = 2f;
     [SerializeField] private float playerRadius = 0.5f;
+    [SerializeField] private float gamepadLookSensitivity = 5f;
     [SerializeField] private float interactDistance = 2f;
     [SerializeField] private float dropDistance = 1.5f;
     [SerializeField] private LayerMask counterLayerMask;
@@ -18,22 +20,22 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     private CharacterController controller;
     private Vector2 moveInput;
     private Vector3 velocity;
+    private Camera mainCamera;
     private bool isGamepad = false;
+    private Vector3 lastGamepadLookDir = Vector3.forward;
     private ICounter selectedCounter;
     private KitchenObject kitchenObject;
-    private WeaponSystem weaponSystem;
-    private Transform modelPoint;
 
     void Awake()
     {
         controller = GetComponent<CharacterController>();
-        weaponSystem = GetComponent<WeaponSystem>();
-        modelPoint = transform.Find("ModelPoint");
+        mainCamera = Camera.main;
     }
 
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+
         if (context.phase != InputActionPhase.Canceled)
             isGamepad = context.control.device is Gamepad;
     }
@@ -45,11 +47,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
             if (selectedCounter != null)
                 selectedCounter.Interact(this);
             else if (!HasKitchenObject())
-            {
                 TryPickUpFromGround();
-                if (HasKitchenObject())
-                    weaponSystem?.SetWeaponLocked(true);
-            }
         }
     }
 
@@ -76,10 +74,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         if (context.phase == InputActionPhase.Started)
         {
             if (HasKitchenObject())
-            {
                 DropKitchenObject();
-                weaponSystem?.SetWeaponLocked(false);
-            }
         }
     }
 
@@ -129,6 +124,8 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     }
 
     public ICounter GetSelectedCounter() => selectedCounter;
+
+    // IKitchenObjectParent
     public Transform GetKitchenObjectFollowTransform() => kitchenObjectHoldPoint;
     public void SetKitchenObject(KitchenObject obj) => kitchenObject = obj;
     public KitchenObject GetKitchenObject() => kitchenObject;
@@ -137,10 +134,8 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
 
     void Update()
     {
-        if (modelPoint == null)
-            modelPoint = transform.Find("ModelPoint");
-
         HandleMovement();
+        HandleRotation();
         HandleInteract();
     }
 
@@ -169,7 +164,9 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
             );
 
             if (canMove)
+            {
                 moveDir = moveDirX;
+            }
             else
             {
                 Vector3 moveDirZ = new Vector3(0, 0, moveDir.z).normalized;
@@ -193,13 +190,49 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         controller.Move(velocity * Time.deltaTime);
     }
 
+    private void HandleRotation()
+    {
+        if (isGamepad)
+        {
+            Vector2 rightStick = Gamepad.current != null
+                ? Gamepad.current.rightStick.ReadValue()
+                : Vector2.zero;
+
+            if (rightStick.magnitude > 0.1f)
+                lastGamepadLookDir = new Vector3(rightStick.x, 0, rightStick.y).normalized;
+
+            transform.forward = Vector3.Slerp(
+                transform.forward,
+                lastGamepadLookDir,
+                Time.deltaTime * rotateSpeed * gamepadLookSensitivity
+            );
+        }
+        else
+        {
+            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Vector3 lookDir = hit.point - transform.position;
+                lookDir.y = 0;
+
+                if (lookDir != Vector3.zero)
+                {
+                    transform.forward = Vector3.Slerp(
+                        transform.forward,
+                        lookDir.normalized,
+                        Time.deltaTime * rotateSpeed
+                    );
+                }
+            }
+        }
+    }
+
     private void HandleInteract()
     {
-        if (modelPoint == null) return;
-
         if (Physics.Raycast(
             transform.position,
-            modelPoint.forward,
+            transform.forward,
             out RaycastHit hit,
             interactDistance,
             counterLayerMask))
@@ -213,10 +246,14 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
                 }
             }
             else
+            {
                 SetSelectedCounterNull();
+            }
         }
         else
+        {
             SetSelectedCounterNull();
+        }
     }
 
     private void SetSelectedCounterNull()
