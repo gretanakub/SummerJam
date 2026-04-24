@@ -7,6 +7,7 @@ public class WeaponSystem : MonoBehaviour
 {
     public WeaponData weaponData;
     public Transform firePoint;
+    public Animator handAnimator; // ← ลาก Object มือใส่ใน Inspector
 
     public int currentAmmo;
     public int reserveAmmo;
@@ -106,6 +107,10 @@ public class WeaponSystem : MonoBehaviour
 
         onAmmoChanged.Invoke(currentAmmo, reserveAmmo);
 
+        // เรียก Animation ยิง
+        if (handAnimator != null)
+            handAnimator.SetTrigger("Shoot");
+
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlayShoot(weaponData.weaponType);
 
@@ -124,6 +129,9 @@ public class WeaponSystem : MonoBehaviour
     void MeleeAttack()
     {
         nextFireTime = Time.time + weaponData.fireRate;
+
+        if (handAnimator != null)
+            handAnimator.SetTrigger("Shoot");
 
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlayShoot(weaponData.weaponType);

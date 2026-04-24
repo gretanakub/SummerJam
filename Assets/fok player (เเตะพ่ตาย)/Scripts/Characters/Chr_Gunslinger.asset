@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Chr_Gunslinger
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Gunslinger
-  portrait: {fileID: 21300000, guid: ae41a543fb858954ab04906a4cdc5bde, type: 3}
-  maxHealth: 100
+  portrait: {fileID: 21300000, guid: 366471d43b1c9f0478b26d2cac6ea8c3, type: 3}
+  maxHearts: 3
   moveSpeed: 5
   dashDistance: 5
   dashCooldown: 2
   weapon: {fileID: 11400000, guid: b6407c569fade0d4fa9ae6bea271a014, type: 2}
   hatPrefab: {fileID: 0}
+  characterModelPrefab: {fileID: 5430637824926075426, guid: 9dbf478efbf2f6e49b2257d7315ff082, type: 3}
+  handObjectName: fire
+  playerPrefab: {fileID: 0}

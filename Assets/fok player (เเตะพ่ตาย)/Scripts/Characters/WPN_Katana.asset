@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   maxAmmo: 0
   ammoPerPickup: 0
+  magazineSize: 0
+  reloadTime: 0
   weaponName: 
   weaponType: 3
-  damage: 50
+  damage: 55
   fireRate: 0.5
   bulletSpeed: 100
   bulletCount: 0

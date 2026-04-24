@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject defaultPlayerPrefab; // fallback ถ้าไม่มี playerPrefab ใน CharacterData
     [SerializeField] private Transform[] spawnPoints;
 
     private bool keyboardJoined = false;
@@ -19,7 +19,10 @@ public class PlayerInputManager : MonoBehaviour
 
         if (!keyboardJoined && playerCount < maxPlayers && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            var player = PlayerInput.Instantiate(playerPrefab,
+            CharacterData data = CharacterSelector.Instance?.GetCharacterForPlayer(playerCount);
+            GameObject prefabToSpawn = (data != null && data.playerPrefab != null) ? data.playerPrefab : defaultPlayerPrefab;
+
+            var player = PlayerInput.Instantiate(prefabToSpawn,
                 controlScheme: "KeyboardMouse",
                 pairWithDevice: Keyboard.current);
 
@@ -35,7 +38,10 @@ public class PlayerInputManager : MonoBehaviour
         {
             if (gamepad.buttonSouth.wasPressedThisFrame && !joinedGamepads.Contains(gamepad) && playerCount < maxPlayers)
             {
-                var player = PlayerInput.Instantiate(playerPrefab,
+                CharacterData data = CharacterSelector.Instance?.GetCharacterForPlayer(playerCount);
+                GameObject prefabToSpawn = (data != null && data.playerPrefab != null) ? data.playerPrefab : defaultPlayerPrefab;
+
+                var player = PlayerInput.Instantiate(prefabToSpawn,
                     controlScheme: "Gamepad",
                     pairWithDevice: gamepad);
 
@@ -51,10 +57,20 @@ public class PlayerInputManager : MonoBehaviour
 
     void SetupPlayer(GameObject player, int index)
     {
-        if (CharacterSelector.Instance == null) return;
+        if (CharacterSelector.Instance == null)
+        {
+            Debug.LogError("CharacterSelector.Instance เป็น NULL!");
+            return;
+        }
 
         CharacterData data = CharacterSelector.Instance.GetCharacterForPlayer(index);
+        Debug.Log($"SetupPlayer index {index} ได้ character: {(data != null ? data.characterName : "NULL")}");
+
         if (data == null) return;
+
+        PlayerSetup setup = player.GetComponent<PlayerSetup>();
+        if (setup != null)
+            setup.playerIndex = index;
 
         WeaponSystem weapon = player.GetComponent<WeaponSystem>();
         if (weapon != null && data.weapon != null)
@@ -65,6 +81,13 @@ public class PlayerInputManager : MonoBehaviour
         {
             health.maxHearts = data.maxHearts;
             health.currentHearts = data.maxHearts;
+        }
+
+        if (data.weapon != null && data.weapon.weaponModelPrefab != null)
+        {
+            Transform handPoint = player.transform.Find("HandPoint");
+            if (handPoint != null)
+                Instantiate(data.weapon.weaponModelPrefab, handPoint);
         }
     }
 }

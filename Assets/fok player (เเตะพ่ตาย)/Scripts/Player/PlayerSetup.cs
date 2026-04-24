@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class PlayerSetup : MonoBehaviour
 {
-    public Transform hatPoint;
     public Transform handPoint;
     public CharacterData defaultCharacter;
+    public int playerIndex = 0;
 
     void Start()
     {
         CharacterData data = null;
 
-        if (CharacterSelector.Instance != null && CharacterSelector.Instance.selectedCharacter != null)
-            data = CharacterSelector.Instance.selectedCharacter;
-        else
+        if (CharacterSelector.Instance != null)
+            data = CharacterSelector.Instance.GetCharacterForPlayer(playerIndex);
+
+        if (data == null)
             data = defaultCharacter;
 
         if (data == null) return;
@@ -34,11 +35,5 @@ public class PlayerSetup : MonoBehaviour
         WeaponSystem weapon = GetComponent<WeaponSystem>();
         if (weapon != null)
             weapon.SetWeapon(data.weapon);
-
-        if (data.hatPrefab != null)
-            Instantiate(data.hatPrefab, hatPoint);
-
-        if (data.weapon != null && data.weapon.weaponModelPrefab != null)
-            Instantiate(data.weapon.weaponModelPrefab, handPoint);
     }
 }
