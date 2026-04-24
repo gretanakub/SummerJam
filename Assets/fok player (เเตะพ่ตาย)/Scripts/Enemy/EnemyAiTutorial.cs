@@ -11,6 +11,7 @@ public class EnemyAiTutorial : MonoBehaviour
     public GameObject projectile;
     public GameObject ammoDropPrefab;
     public GameObject fruitDropPrefab;
+    public GameObject healthBottleDropPrefab;
 
     private float health;
     private bool alreadyAttacked;
@@ -41,7 +42,7 @@ public class EnemyAiTutorial : MonoBehaviour
             if (playerObj != null)
                 player = playerObj.transform;
             else
-                return; // หาไม่เจอค่อย return
+                return;
         }
 
         float sightRange = enemyData != null ? enemyData.sightRange : 10f;
@@ -124,12 +125,16 @@ public class EnemyAiTutorial : MonoBehaviour
     {
         float ammoChance = enemyData != null ? enemyData.ammoDropChance : 0.5f;
         float fruitChance = enemyData != null ? enemyData.fruitDropChance : 0.3f;
+        float healthChance = enemyData != null ? enemyData.healthBottleDropChance : 0.3f;
 
         if (ammoDropPrefab != null && Random.value <= ammoChance)
             Instantiate(ammoDropPrefab, transform.position, Quaternion.identity);
 
         if (fruitDropPrefab != null && Random.value <= fruitChance)
             Instantiate(fruitDropPrefab, transform.position, Quaternion.identity);
+
+        if (healthBottleDropPrefab != null && Random.value <= healthChance)
+            Instantiate(healthBottleDropPrefab, transform.position, Quaternion.identity);
     }
 
     private void OnDrawGizmosSelected()

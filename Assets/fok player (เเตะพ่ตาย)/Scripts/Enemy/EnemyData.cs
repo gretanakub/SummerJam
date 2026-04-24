@@ -20,5 +20,6 @@ public class EnemyData : ScriptableObject
     [Header("Drop")]
     [Range(0f, 1f)] public float ammoDropChance = 0.5f;
     [Range(0f, 1f)] public float fruitDropChance = 0.3f;
+    [Range(0f, 1f)] public float healthBottleDropChance = 0.3f; // ← เพิ่มตรงนี้
     public int ammoDropAmount = 10;
 }

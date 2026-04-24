@@ -33,6 +33,12 @@ public class PlayerHealthSystem : MonoBehaviour
         }
     }
 
+    public void Heal(int amount) // ← เพิ่มตรงนี้
+    {
+        currentHearts = Mathf.Clamp(currentHearts + amount, 0, maxHearts);
+        onHeartsChanged.Invoke(currentHearts);
+    }
+
     public float GetHealthPercent()
     {
         return (float)currentHearts / maxHearts;

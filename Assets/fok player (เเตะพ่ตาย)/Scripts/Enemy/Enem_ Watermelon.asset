@@ -22,4 +22,5 @@ MonoBehaviour:
   attackCooldown: 3
   ammoDropChance: 0.5
   fruitDropChance: 1
+  healthBottleDropChance: 0
   ammoDropAmount: 10
