@@ -4,13 +4,7 @@ using System.Linq;
 public class ServeCounter : MonoBehaviour, ICounter
 {
     [SerializeField] private KitchenObjectSO[] serveableMenuSOArray;
-
-    private OrderManager orderManager;
-
-    private void Start()
-    {
-        orderManager = OrderManager.Instance;
-    }
+    [SerializeField] private OrderManager orderManager; // ลากใส่ตรงนี้เลย
 
     public void Interact(PlayerController player)
     {
@@ -20,9 +14,20 @@ public class ServeCounter : MonoBehaviour, ICounter
             return;
         }
 
+        if (orderManager == null)
+        {
+            Debug.LogError("ไม่ได้ assign OrderManager ใน Inspector!");
+            return;
+        }
+
         KitchenObjectSO heldSO = player.GetKitchenObject().GetKitchenObjectSO();
+        Debug.Log("ของที่ถืออยู่ = " + heldSO.objectName);
+
+        foreach (var s in serveableMenuSOArray)
+            Debug.Log("เช็ค " + heldSO.objectName + " กับ " + s?.objectName + " = " + (s == heldSO));
 
         bool isServeable = serveableMenuSOArray.Any(s => s == heldSO);
+        Debug.Log("isServeable = " + isServeable);
 
         if (!isServeable)
         {
@@ -31,6 +36,7 @@ public class ServeCounter : MonoBehaviour, ICounter
         }
 
         bool success = orderManager.TryServeOrder(heldSO.objectName);
+        Debug.Log("TryServeOrder = " + success);
 
         if (success)
             player.GetKitchenObject().DestroySelf();

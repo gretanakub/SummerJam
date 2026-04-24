@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3032565588325232188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1523720809235975829}
+  - component: {fileID: 5134754288690268680}
+  m_Layer: 0
+  m_Name: OrderManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1523720809235975829
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3032565588325232188}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 263.6062, y: 231.91963, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5134754288690268680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3032565588325232188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00bdd8e9e44344b46bb1225ab5d7e03e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrderManager
+  orderFrame: {fileID: 0}
+  orderPrefabs:
+  - {fileID: 7617874009975300211, guid: 57d18c40ccf64924cb45babccabce06c, type: 3}
+  - {fileID: 4251489210557723333, guid: bd855e053fac02e4695954e0ce8940b4, type: 3}
+  - {fileID: 7733834765944571786, guid: 7eb9e8a5c92d5d04db3a1ccf51561ed7, type: 3}
+  - {fileID: 5236816614990682671, guid: 45ac52263c876b04bb0f19f31957e4bd, type: 3}
+  - {fileID: 6562384383224054406, guid: 4144aecbd02f90b439bf0ba2420794ff, type: 3}
+  - {fileID: 4203620578983327424, guid: 278cf84be4ef7824cbe901ef3afd5635, type: 3}
+  - {fileID: 6152136355779971319, guid: 545f5973b9f13804faa0448eb153d502, type: 3}
+  - {fileID: 819417143018962836, guid: efcc00072b85acf498fc0f383e362de9, type: 3}
+  defaultTime: 60
+  spawnInterval: 20
+  maxOrders: 5
+  scorePerOrder: 100
+  penaltyPerFail: 50

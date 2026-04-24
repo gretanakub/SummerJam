@@ -24,7 +24,6 @@ public class OrderManager : MonoBehaviour
     private Color colorFull = new Color(0.18f, 0.80f, 0.25f);
     private Color colorEmpty = new Color(1.00f, 0.00f, 0.00f);
 
-    // ชื่อเมนูทั้งหมด ต้องตรงกับชื่อ Prefab
     private string[] menuNames = new string[]
     {
         "Citrus Sunrise Blend",
@@ -43,6 +42,7 @@ public class OrderManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        DontDestroyOnLoad(gameObject);
 
         prefabMap = new Dictionary<string, GameObject>();
         foreach (var p in orderPrefabs)
@@ -51,27 +51,24 @@ public class OrderManager : MonoBehaviour
 
     private void Start()
     {
-        scoreManager = FindObjectOfType<ScoreManager>();
+        scoreManager = FindFirstObjectByType<ScoreManager>();
     }
 
-    // เริ่มสุ่ม order
     public void StartOrdering()
     {
         isGameRunning = true;
+        scoreManager = FindFirstObjectByType<ScoreManager>();
         StartCoroutine(SpawnOrderRoutine());
     }
 
-    // หยุดสุ่ม order
     public void StopOrdering()
     {
         isGameRunning = false;
         StopAllCoroutines();
     }
 
-    // สุ่ม order ทุก spawnInterval วินาที
     private IEnumerator SpawnOrderRoutine()
     {
-        // spawn อันแรกทันที
         SpawnRandomOrder();
 
         while (isGameRunning)
@@ -85,7 +82,6 @@ public class OrderManager : MonoBehaviour
 
     private void SpawnRandomOrder()
     {
-        // กรอง menu ที่มี prefab เท่านั้น
         List<string> available = menuNames
             .Where(m => prefabMap.ContainsKey(m))
             .ToList();
@@ -156,23 +152,19 @@ public class OrderManager : MonoBehaviour
         Debug.Log($"{obj.name} หมดเวลา!");
         activeOrders.Remove(obj.name);
 
-        // ลด score ตอน order หมดเวลา
         if (scoreManager != null)
             scoreManager.DecreaseScore(penaltyPerFail);
 
         Destroy(obj);
     }
 
-    // เสิร์ฟเมนู → เช็คว่าตรงกับ order ไหมแล้วให้คะแนน
     public bool TryServeOrder(string menuName)
     {
-        // หา order ที่ตรงกับเมนูที่ส่ง
         string found = activeOrders
             .FirstOrDefault(o => o.StartsWith(menuName));
 
         if (found != null)
         {
-            // หา GameObject ใน orderFrame
             Transform orderObj = orderFrame
                 .Cast<Transform>()
                 .FirstOrDefault(c => c.name == found);
@@ -182,7 +174,6 @@ public class OrderManager : MonoBehaviour
 
             activeOrders.Remove(found);
 
-            // เพิ่ม score
             if (scoreManager != null)
                 scoreManager.IncreaseScore(scorePerOrder);
 
