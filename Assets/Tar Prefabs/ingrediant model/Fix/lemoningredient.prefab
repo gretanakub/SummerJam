@@ -48,10 +48,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8647204876555772305, guid: 50258d72aaec08f4a8a893b0b26143cc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 496cca5320f82044da8c0f03c80f6a53, type: 2}
     - target: {fileID: 919132149155446097, guid: 50258d72aaec08f4a8a893b0b26143cc, type: 3}
       propertyPath: m_Name
       value: lemoningredient
       objectReference: {fileID: 0}
+    - target: {fileID: 9196038722108697792, guid: 50258d72aaec08f4a8a893b0b26143cc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ca4fdd9f846378c49b490a707e0b8ad0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 65702495048144492, guid: 50258d72aaec08f4a8a893b0b26143cc, type: 3}
