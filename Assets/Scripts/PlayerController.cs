@@ -25,17 +25,39 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     private Vector3 lastGamepadLookDir = Vector3.forward;
     private ICounter selectedCounter;
     private KitchenObject kitchenObject;
+    private WeaponSystem weaponSystem;
+    private Transform handPoint;
 
     void Awake()
     {
         controller = GetComponent<CharacterController>();
         mainCamera = Camera.main;
+        weaponSystem = GetComponent<WeaponSystem>();
+    }
+
+    void Start()
+    {
+        // หา HandPoint ตอน Start เพราะ ModelPoint อาจยังไม่ถูก Spawn ตอน Awake
+        StartCoroutine(FindHandPoint());
+    }
+
+    System.Collections.IEnumerator FindHandPoint()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Transform modelPoint = transform.Find("ModelPoint");
+        if (modelPoint != null)
+            handPoint = modelPoint.Find("HandPoint");
+    }
+
+    void HideWeapon(bool hide)
+    {
+        if (handPoint != null)
+            handPoint.gameObject.SetActive(!hide);
     }
 
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-
         if (context.phase != InputActionPhase.Canceled)
             isGamepad = context.control.device is Gamepad;
     }
@@ -47,7 +69,14 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
             if (selectedCounter != null)
                 selectedCounter.Interact(this);
             else if (!HasKitchenObject())
+            {
                 TryPickUpFromGround();
+                if (HasKitchenObject())
+                {
+                    weaponSystem?.SetWeaponLocked(true);
+                    HideWeapon(true);
+                }
+            }
         }
     }
 
@@ -74,7 +103,11 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         if (context.phase == InputActionPhase.Started)
         {
             if (HasKitchenObject())
+            {
                 DropKitchenObject();
+                weaponSystem?.SetWeaponLocked(false);
+                HideWeapon(false);
+            }
         }
     }
 
@@ -124,8 +157,6 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     }
 
     public ICounter GetSelectedCounter() => selectedCounter;
-
-    // IKitchenObjectParent
     public Transform GetKitchenObjectFollowTransform() => kitchenObjectHoldPoint;
     public void SetKitchenObject(KitchenObject obj) => kitchenObject = obj;
     public KitchenObject GetKitchenObject() => kitchenObject;
@@ -164,9 +195,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
             );
 
             if (canMove)
-            {
                 moveDir = moveDirX;
-            }
             else
             {
                 Vector3 moveDirZ = new Vector3(0, 0, moveDir.z).normalized;
@@ -246,14 +275,10 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
                 }
             }
             else
-            {
                 SetSelectedCounterNull();
-            }
         }
         else
-        {
             SetSelectedCounterNull();
-        }
     }
 
     private void SetSelectedCounterNull()

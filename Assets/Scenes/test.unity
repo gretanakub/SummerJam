@@ -2770,7 +2770,7 @@ PrefabInstance:
     - target: {fileID: 3342179124711695923, guid: 53025dda3e2378d48b2350875d861e4a, type: 3}
       propertyPath: defaultPlayerPrefab
       value: 
-      objectReference: {fileID: 1182794715435199128, guid: f6fd95691b25f7a4bb5a29331cb68b1a, type: 3}
+      objectReference: {fileID: 1182794715435199128, guid: c10456199e0f8fc45bf8888d49f5aa21, type: 3}
     - target: {fileID: 3342179124711695923, guid: 53025dda3e2378d48b2350875d861e4a, type: 3}
       propertyPath: spawnPoints.Array.size
       value: 2
