@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4146d3787fa1434478815d91f0c25d7d, type: 3}
-  m_Name: MortarRecipeSO
+  m_Name: Mash both
   m_EditorClassIdentifier: Assembly-CSharp::MortarRecipeSO
-  input: {fileID: 0}
-  output: {fileID: 0}
-  grindingProgressMax: 0
+  inputArray:
+  - {fileID: 11400000, guid: d8f709462b3869848ba2998232373196, type: 2}
+  - {fileID: 11400000, guid: 52ce1133181d58a439fa3ea5557f032a, type: 2}
+  output: {fileID: 11400000, guid: 04b3f2c7c6e4e304b910b60361022303, type: 2}
+  grindingProgressMax: 5

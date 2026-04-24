@@ -48,9 +48,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5004740735922860266, guid: b22a73509f6c45a4296283995c7ed4ba, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -4318729294705277207, guid: b22a73509f6c45a4296283995c7ed4ba, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -3484539256136910032, guid: b22a73509f6c45a4296283995c7ed4ba, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b22a73509f6c45a4296283995c7ed4ba, type: 3}
       propertyPath: m_Name
       value: CupOfIce 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b22a73509f6c45a4296283995c7ed4ba, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342855658915744305, guid: b22a73509f6c45a4296283995c7ed4ba, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

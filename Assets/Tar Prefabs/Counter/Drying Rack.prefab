@@ -424,7 +424,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c8dc99b178088a469c7472dd353af2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DryingRackCounter
-  dryingRecipeSOArray: []
+  dryingRecipeSOArray:
+  - {fileID: 11400000, guid: fb22b761073d40141b61ded2c522a912, type: 2}
+  - {fileID: 11400000, guid: de73d3b9fb340e644ac5eafffc554b31, type: 2}
+  - {fileID: 11400000, guid: a1c717d0801f0ea48861b84ddfaea1d2, type: 2}
   counterTopPoint: {fileID: 3312473028863557895}
 --- !u!4 &8631478348835698424 stripped
 Transform:

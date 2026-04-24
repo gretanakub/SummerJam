@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Strawberry Slice
   m_EditorClassIdentifier: Assembly-CSharp::CuttingRecipeSO
   input: {fileID: 11400000, guid: ff7258cff528cdd4aa680d8bfe0775df, type: 2}
-  output: {fileID: 11400000, guid: 54496cc1afa4a294f908d85529a7e322, type: 2}
+  output: {fileID: 11400000, guid: 57db24dd78f41eb429fbd9f48917405b, type: 2}
   cuttingProgressMax: 3

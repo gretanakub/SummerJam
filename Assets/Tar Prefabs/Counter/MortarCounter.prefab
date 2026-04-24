@@ -429,7 +429,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16fec9327d882547bb1b234d4807d8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MortarCounter
-  mortarRecipeSOArray: []
+  mortarRecipeSOArray:
+  - {fileID: 11400000, guid: a1435adcebcd9154b8b48432ecaa51be, type: 2}
+  - {fileID: 11400000, guid: c28ad740913d6e24f9bda4e1dd536b6a, type: 2}
+  - {fileID: 11400000, guid: 713ef7dc4cf324845a5a75263ae8b4b2, type: 2}
   counterTopPoint: {fileID: 653207207464354962}
 --- !u!1001 &3312066572268636322
 PrefabInstance:
@@ -716,7 +719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc97313d2668098428ed4dd2db97cac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectedCounterVisual
-  counter: {fileID: 0}
+  counter: {fileID: 3669081765269125406}
   visualGameObjectArray:
   - {fileID: 5037431152022693691}
   - {fileID: 3941385228149970255}

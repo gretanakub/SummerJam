@@ -51,6 +51,10 @@ public class BlenderCounter : MonoBehaviour, IKitchenObjectParent, ICounter
             {
                 KitchenObjectSO ingredient = player.GetKitchenObject().GetKitchenObjectSO();
 
+                Debug.Log("ของที่ถืออยู่ = " + ingredient.objectName);
+                Debug.Log("IsValidIngredient = " + IsValidIngredient(ingredient));
+                Debug.Log("isBlending = " + isBlending);
+
                 if (IsValidIngredient(ingredient) && !isBlending)
                 {
                     ingredientList.Add(ingredient);
@@ -62,6 +66,10 @@ public class BlenderCounter : MonoBehaviour, IKitchenObjectParent, ICounter
                 {
                     Debug.Log("ของนี้ใส่ใน Blender ไม่ได้หรือกำลังปั่นอยู่");
                 }
+            }
+            else
+            {
+                Debug.Log("player ไม่ได้ถือของอยู่");
             }
         }
         else
@@ -120,6 +128,7 @@ public class BlenderCounter : MonoBehaviour, IKitchenObjectParent, ICounter
         {
             foreach (KitchenObjectSO input in recipe.inputArray)
             {
+                Debug.Log("เช็ค " + ingredientSO.objectName + " กับ " + input.objectName + " = " + (input == ingredientSO));
                 if (input == ingredientSO)
                     return true;
             }
@@ -140,9 +149,7 @@ public class BlenderCounter : MonoBehaviour, IKitchenObjectParent, ICounter
             foreach (KitchenObjectSO input in recipe.inputArray)
             {
                 if (tempList.Contains(input))
-                {
                     tempList.Remove(input);
-                }
                 else
                 {
                     isMatch = false;

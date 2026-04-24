@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2541159df30e26741a5feea2242f0645, type: 3}
   m_Name: Watermelon slice object
   m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectSO
-  prefab: {fileID: 0}
-  icon: {fileID: 0}
-  objectName: 
+  prefab: {fileID: 2284294185445614736, guid: 57ac22ef874436b4eb9815a68585af77, type: 3}
+  icon: {fileID: 21300000, guid: 9a76ed5e6a7105242b327976f306bd28, type: 3}
+  objectName: Watermelon Slice

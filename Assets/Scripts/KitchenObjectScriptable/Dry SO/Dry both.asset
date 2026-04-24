@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dbe59f93400b6e40810f51cb41b1d84, type: 3}
-  m_Name: DryingRecipeSO 2
+  m_Name: Dry both
   m_EditorClassIdentifier: Assembly-CSharp::DryingRecipeSO
-  input: {fileID: 0}
-  output: {fileID: 0}
-  dryingTimeMax: 0
+  inputArray:
+  - {fileID: 11400000, guid: 04b3f2c7c6e4e304b910b60361022303, type: 2}
+  output: {fileID: 11400000, guid: f6cb184846f897b4988f0a093fef61f0, type: 2}
+  dryingTimeMax: 7

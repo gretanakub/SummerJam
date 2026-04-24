@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public class BlenderIngredientIconUI : MonoBehaviour
 {
     [SerializeField] private BlenderCounter blenderCounter;
-    [SerializeField] private Transform iconContainer; // parent ของ icon ทั้งหมด
-    [SerializeField] private GameObject iconPrefab;   // prefab ของ icon แต่ละตัว
+    [SerializeField] private Transform iconContainer;
+    [SerializeField] private GameObject iconPrefab;
 
     private void Start()
     {
@@ -25,21 +25,21 @@ public class BlenderIngredientIconUI : MonoBehaviour
 
     private void CheckClear(float progress)
     {
-        // ซ่อน icon ตอน reset
         if (progress == 0f && !blenderCounter.IsBlending() && !blenderCounter.IsBlendingDone())
             ClearIcons();
     }
 
     private void UpdateIcons()
     {
-        // ลบ icon เดิมทั้งหมด
+        Debug.Log("UpdateIcons called | ingredients = " + blenderCounter.GetIngredientList().Count);
+
         foreach (Transform child in iconContainer)
             Destroy(child.gameObject);
 
-        // สร้าง icon ใหม่จาก ingredientList
         List<KitchenObjectSO> ingredients = blenderCounter.GetIngredientList();
         foreach (KitchenObjectSO ingredient in ingredients)
         {
+            Debug.Log("สร้าง icon ของ " + ingredient.objectName + " | icon = " + ingredient.icon);
             GameObject iconObj = Instantiate(iconPrefab, iconContainer);
             iconObj.GetComponent<Image>().sprite = ingredient.icon;
         }
