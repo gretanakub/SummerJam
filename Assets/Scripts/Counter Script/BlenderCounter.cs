@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public class BlenderCounter : MonoBehaviour, IKitchenObjectParent, ICounter
 {
@@ -8,36 +9,50 @@ public class BlenderCounter : MonoBehaviour, IKitchenObjectParent, ICounter
     public event Action OnBlendingDone;
 
     [SerializeField] private BlenderRecipeSO[] blenderRecipeSOArray;
+    [SerializeField] private KitchenObjectSO cupOfIceSO;  // Cup of Ice SO
+    [SerializeField] private KitchenObjectSO readyToServeSO; // น้ำพร้อมเสิร์ฟ
     [SerializeField] private Transform counterTopPoint;
-    [SerializeField] private float blendingTimeMax = 3f; // วินาทีที่ใช้ปั่น
+    [SerializeField] private float blendingTimeMax = 3f;
 
-    private KitchenObject kitchenObject;
+    private KitchenObject kitchenObject; // Cup of Ice ที่วางอยู่
+    private List<KitchenObjectSO> ingredientList = new List<KitchenObjectSO>();
     private float blendingTimer;
     private bool isBlending;
+    private bool hasCupOfIce;
 
     private void Update()
     {
-        if (isBlending && HasKitchenObject())
+        if (isBlending)
         {
             blendingTimer += Time.deltaTime;
 
-            // อัพเดท progress
             float progressNormalized = blendingTimer / blendingTimeMax;
             OnBlendingProgressChanged?.Invoke(progressNormalized);
 
             if (blendingTimer >= blendingTimeMax)
             {
-                // ปั่นเสร็จ
                 isBlending = false;
                 blendingTimer = 0f;
 
-                BlenderRecipeSO recipe = GetRecipeWithInput(kitchenObject.GetKitchenObjectSO());
+                // เช็ค recipe ว่า ingredient ที่ใส่ตรงกับ recipe ไหน
+                BlenderRecipeSO recipe = GetMatchingRecipe();
 
                 if (recipe != null)
                 {
-                    KitchenObjectSO outputSO = recipe.output;
-                    kitchenObject.DestroySelf();
-                    KitchenObject.SpawnKitchenObject(outputSO, this);
+                    // ลบ ingredient ทั้งหมด
+                    ingredientList.Clear();
+
+                    // ทำลาย Cup of Ice เดิม
+                    if (kitchenObject != null)
+                        kitchenObject.DestroySelf();
+
+                    // Spawn น้ำพร้อมเสิร์ฟ
+                    KitchenObject.SpawnKitchenObject(recipe.output, this);
+                }
+                else
+                {
+                    Debug.Log("ไม่มี recipe ที่ตรงกับ ingredient ที่ใส่");
+                    isBlending = false;
                 }
 
                 OnBlendingProgressChanged?.Invoke(0f);
@@ -48,37 +63,59 @@ public class BlenderCounter : MonoBehaviour, IKitchenObjectParent, ICounter
 
     public void Interact(PlayerController player)
     {
-        if (!HasKitchenObject())
+        if (!hasCupOfIce)
         {
+            // ยังไม่มี Cup of Ice → ต้องวาง Cup of Ice ก่อน
             if (player.HasKitchenObject())
             {
-                // เช็คว่าของที่ถืออยู่ปั่นได้ไหม
-                if (HasRecipeWithInput(player.GetKitchenObject().GetKitchenObjectSO()))
+                if (player.GetKitchenObject().GetKitchenObjectSO() == cupOfIceSO)
                 {
+                    // วาง Cup of Ice ลง Blender
                     player.GetKitchenObject().SetKitchenObjectParent(this);
-                    blendingTimer = 0f;
-                    isBlending = false;
-                    OnBlendingProgressChanged?.Invoke(0f);
+                    hasCupOfIce = true;
+                    ingredientList.Clear();
+                    Debug.Log("วาง Cup of Ice ลง Blender แล้ว");
                 }
                 else
                 {
-                    Debug.Log("ของนี้ปั่นไม่ได้");
+                    Debug.Log("ต้องใส่ Cup of Ice ก่อน!");
                 }
             }
         }
         else
         {
-            if (!player.HasKitchenObject())
+            // มี Cup of Ice แล้ว
+            if (player.HasKitchenObject())
             {
-                // ถ้าปั่นเสร็จแล้ว → หยิบได้
-                if (!isBlending)
+                KitchenObjectSO ingredient = player.GetKitchenObject().GetKitchenObjectSO();
+
+                // เช็คว่า ingredient นี้อยู่ใน recipe ไหนสักอัน
+                if (IsValidIngredient(ingredient) && !isBlending)
                 {
-                    kitchenObject.SetKitchenObjectParent(player);
-                    OnBlendingProgressChanged?.Invoke(0f);
+                    // เพิ่ม ingredient เข้า list
+                    ingredientList.Add(ingredient);
+
+                    // ทำลาย ingredient ที่ถืออยู่
+                    player.GetKitchenObject().DestroySelf();
+
+                    Debug.Log("ใส่ " + ingredient.objectName + " เข้า Blender แล้ว");
+                    Debug.Log("Ingredient ที่ใส่แล้ว: " + ingredientList.Count + " ตัว");
                 }
                 else
                 {
-                    Debug.Log("กำลังปั่นอยู่ รอให้เสร็จก่อน");
+                    Debug.Log("ของนี้ใส่ใน Blender ไม่ได้");
+                }
+            }
+            else
+            {
+                // player ไม่ถือของ
+                if (!isBlending && HasKitchenObject())
+                {
+                    // หยิบน้ำพร้อมเสิร์ฟออกมา
+                    kitchenObject.SetKitchenObjectParent(player);
+                    hasCupOfIce = false;
+                    ingredientList.Clear();
+                    OnBlendingProgressChanged?.Invoke(0f);
                 }
             }
         }
@@ -86,37 +123,70 @@ public class BlenderCounter : MonoBehaviour, IKitchenObjectParent, ICounter
 
     public void InteractAlternate(PlayerController player)
     {
-        // กด F เพื่อเริ่ม/หยุดปั่น
-        if (HasKitchenObject() && HasRecipeWithInput(kitchenObject.GetKitchenObjectSO()))
+        // กด F เพื่อเริ่มปั่น ต้องมี Cup of Ice และ ingredient อย่างน้อย 1 ตัว
+        if (hasCupOfIce && ingredientList.Count > 0 && !isBlending)
         {
-            isBlending = !isBlending;
+            BlenderRecipeSO recipe = GetMatchingRecipe();
 
-            if (isBlending)
+            if (recipe != null)
             {
+                isBlending = true;
+                blendingTimer = 0f;
                 OnBlendingStarted?.Invoke();
+                Debug.Log("เริ่มปั่น!");
             }
             else
             {
-                OnBlendingProgressChanged?.Invoke(0f);
+                Debug.Log("ingredient ยังไม่ครบตาม recipe");
             }
         }
     }
 
-    private bool HasRecipeWithInput(KitchenObjectSO inputSO)
-    {
-        return GetRecipeWithInput(inputSO) != null;
-    }
-
-    private BlenderRecipeSO GetRecipeWithInput(KitchenObjectSO inputSO)
+    private bool IsValidIngredient(KitchenObjectSO ingredientSO)
     {
         foreach (BlenderRecipeSO recipe in blenderRecipeSOArray)
         {
-            if (recipe.input == inputSO)
-                return recipe;
+            foreach (KitchenObjectSO input in recipe.inputArray)
+            {
+                if (input == ingredientSO)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private BlenderRecipeSO GetMatchingRecipe()
+    {
+        foreach (BlenderRecipeSO recipe in blenderRecipeSOArray)
+        {
+            if (recipe.inputArray.Length != ingredientList.Count)
+                continue;
+
+            bool isMatch = true;
+
+            // เช็คว่า ingredient ทุกตัวใน recipe ตรงกับที่ใส่ไปไหม
+            List<KitchenObjectSO> tempList = new List<KitchenObjectSO>(ingredientList);
+
+            foreach (KitchenObjectSO input in recipe.inputArray)
+            {
+                if (tempList.Contains(input))
+                {
+                    tempList.Remove(input);
+                }
+                else
+                {
+                    isMatch = false;
+                    break;
+                }
+            }
+
+            if (isMatch) return recipe;
         }
         return null;
     }
 
+    public List<KitchenObjectSO> GetIngredientList() => ingredientList;
+    public bool HasCupOfIce() => hasCupOfIce;
     public bool IsBlending() => isBlending;
 
     public Transform GetKitchenObjectFollowTransform() => counterTopPoint;

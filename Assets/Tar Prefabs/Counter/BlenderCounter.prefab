@@ -416,6 +416,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlenderCounter
   blenderRecipeSOArray: []
+  cupOfIceSO: {fileID: 11400000, guid: 137e0479e36f1bf41a7fe7fbc6960f00, type: 2}
+  readyToServeSO: {fileID: 0}
   counterTopPoint: {fileID: 2610888305921379891}
   blendingTimeMax: 3
 --- !u!4 &9082302959961799116 stripped
