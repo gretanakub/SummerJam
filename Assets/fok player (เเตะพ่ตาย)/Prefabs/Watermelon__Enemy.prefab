@@ -157,9 +157,9 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 128
-  projectile: {fileID: 1721356864707456129, guid: c6db827e2b8dc80458e74be97bf90b86, type: 3}
+  projectile: {fileID: 2454970896217109628, guid: b1986385461ae2b408d151576b85b824, type: 3}
   ammoDropPrefab: {fileID: 8222903350482165800, guid: 39ac8b0f47a9e4d4096ee5efa3aed1ad, type: 3}
-  fruitDropPrefab: {fileID: 4342955633270961683, guid: f95a553882ca83d47b3601abbebba8ca, type: 3}
+  fruitDropPrefab: {fileID: 7271217587206663483, guid: 8e73847250f7a924e8712459b24b10ca, type: 3}
 --- !u!114 &2569498155947137166
 MonoBehaviour:
   m_ObjectHideFlags: 0

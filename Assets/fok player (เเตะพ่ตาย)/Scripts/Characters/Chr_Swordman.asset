@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Chr_Swordman
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Swordman
-  portrait: {fileID: 21300000, guid: 7cc7418dbdf53264ba1ef24d70c2b4c3, type: 3}
-  maxHealth: 150
+  portrait: {fileID: 21300000, guid: 3a21af094397ae246b06693c522ac72e, type: 3}
+  maxHearts: 6
   moveSpeed: 6
   dashDistance: 6
   dashCooldown: 1.5
   weapon: {fileID: 11400000, guid: a0716d5ab87e92d408829cfbe728ddd7, type: 2}
   hatPrefab: {fileID: 0}
+  characterModelPrefab: {fileID: 0}
+  handObjectName: fire
+  playerPrefab: {fileID: 0}

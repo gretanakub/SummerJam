@@ -13,4 +13,6 @@ public class CharacterData : ScriptableObject
     public WeaponData weapon;
     public GameObject hatPrefab;
     public GameObject characterModelPrefab;
+    public string handObjectName = "fire";
+    public GameObject playerPrefab; // ← เพิ่มตรงนี้
 }
