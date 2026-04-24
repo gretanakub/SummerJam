@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Lemon slice object
   m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectSO
   prefab: {fileID: 952771196582873844, guid: c097e94bc911d564a8f74cc29e80791a, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: -1986725104, guid: 84a0e673d1e01b543b3c378822a8e3ce, type: 3}
   objectName: Lemon Slice

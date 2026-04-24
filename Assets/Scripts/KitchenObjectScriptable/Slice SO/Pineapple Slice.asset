@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba00e21face84bd459af8e1ca2205442, type: 3}
   m_Name: Pineapple Slice
   m_EditorClassIdentifier: Assembly-CSharp::CuttingRecipeSO
-  input: {fileID: 11400000, guid: 52ce1133181d58a439fa3ea5557f032a, type: 2}
-  output: {fileID: 0}
-  cuttingProgressMax: 0
+  input: {fileID: 11400000, guid: 6aa69c9eb49f6e541875aaddefbd8ed4, type: 2}
+  output: {fileID: 11400000, guid: 54496cc1afa4a294f908d85529a7e322, type: 2}
+  cuttingProgressMax: 5

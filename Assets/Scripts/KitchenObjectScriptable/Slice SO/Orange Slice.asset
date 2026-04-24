@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Orange Slice
   m_EditorClassIdentifier: Assembly-CSharp::CuttingRecipeSO
   input: {fileID: 11400000, guid: 52ce1133181d58a439fa3ea5557f032a, type: 2}
-  output: {fileID: 0}
-  cuttingProgressMax: 0
+  output: {fileID: 11400000, guid: c4d4d4632613e4943ae4706c0b9949ac, type: 2}
+  cuttingProgressMax: 4
