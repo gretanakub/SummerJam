@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba00e21face84bd459af8e1ca2205442, type: 3}
   m_Name: Lemon Slice
   m_EditorClassIdentifier: Assembly-CSharp::CuttingRecipeSO
-  input: {fileID: 11400000, guid: 52ce1133181d58a439fa3ea5557f032a, type: 2}
-  output: {fileID: 0}
-  cuttingProgressMax: 0
+  input: {fileID: 11400000, guid: d8f709462b3869848ba2998232373196, type: 2}
+  output: {fileID: 11400000, guid: 27f9c2ff61f5c6b4781f2e4409d998fe, type: 2}
+  cuttingProgressMax: 3

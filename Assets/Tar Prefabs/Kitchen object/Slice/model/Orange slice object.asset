@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Orange slice object
   m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectSO
   prefab: {fileID: 788361009873438324, guid: 13f2535e43f4c9b4a8195a202b52e244, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 25442431, guid: 08f509ef84d712643a6ae6cb3116b790, type: 3}
   objectName: Orange Slice
