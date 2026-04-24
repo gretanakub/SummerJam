@@ -6,11 +6,11 @@ public class CharacterSelectUI : MonoBehaviour
 {
     public CharacterData[] characters;
     public Image[] characterImages;
-    public Button[] characterButtons; // เพิ่ม array ของปุ่ม
+    public Button[] characterButtons;
 
     private static CharacterData[] selectedCharacters;
     private static int currentPlayerSelecting = 0;
-    private static bool[] characterTaken; // เช็คว่าตัวไหนถูกเลือกแล้ว
+    private static bool[] characterTaken;
 
     public TMPro.TextMeshProUGUI playerTurnText;
 
@@ -20,13 +20,6 @@ public class CharacterSelectUI : MonoBehaviour
         int count = Mathf.Max(1, PlayerSelectMenu.numberOfPlayers);
         selectedCharacters = new CharacterData[count];
         characterTaken = new bool[characters.Length];
-
-        for (int i = 0; i < characters.Length; i++)
-        {
-            if (characterImages[i] != null && characters[i].portrait != null)
-                characterImages[i].sprite = characters[i].portrait;
-        }
-
         UpdatePlayerTurnText();
     }
 
@@ -38,7 +31,7 @@ public class CharacterSelectUI : MonoBehaviour
 
     public void SelectCharacter(int index)
     {
-        if (characterTaken[index]) return; // ถ้าถูกเลือกแล้วไม่ทำอะไร
+        if (characterTaken[index]) return;
 
         if (CharacterSelector.Instance == null)
         {
@@ -46,12 +39,12 @@ public class CharacterSelectUI : MonoBehaviour
             obj.AddComponent<CharacterSelector>();
         }
 
-        // Grey Out ปุ่มที่เลือก
         characterTaken[index] = true;
         if (characterButtons[index] != null)
         {
             characterButtons[index].interactable = false;
-            characterImages[index].color = new Color(0.5f, 0.5f, 0.5f, 1f);
+            if (characterImages[index] != null)
+                characterImages[index].color = new Color(0.5f, 0.5f, 0.5f, 1f);
         }
 
         selectedCharacters[currentPlayerSelecting] = characters[index];
@@ -60,7 +53,7 @@ public class CharacterSelectUI : MonoBehaviour
         if (currentPlayerSelecting >= PlayerSelectMenu.numberOfPlayers)
         {
             CharacterSelector.Instance.SetAllCharacters(selectedCharacters);
-            SceneManager.LoadScene("Test");
+            SceneManager.LoadScene("Comic");
         }
         else
         {

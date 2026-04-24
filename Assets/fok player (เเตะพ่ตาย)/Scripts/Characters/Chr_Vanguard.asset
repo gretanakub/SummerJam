@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Chr_Vanguard
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Vanguard
-  portrait: {fileID: 21300000, guid: 89cea8c4efe25f84b9bfca64ea5375a5, type: 3}
-  maxHealth: 120
+  portrait: {fileID: 21300000, guid: 16749f7bd7d38a041b2967fff4fd9d56, type: 3}
+  maxHearts: 4
   moveSpeed: 4.5
   dashDistance: 4
   dashCooldown: 2.5
   weapon: {fileID: 11400000, guid: c0f60d56de6e69f49988caba00ae8693, type: 2}
   hatPrefab: {fileID: 0}
+  characterModelPrefab: {fileID: 0}
+  handObjectName: fire
+  playerPrefab: {fileID: 0}

@@ -905,7 +905,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 71d1d303e8c3f3d47b951826d3be14f8, type: 2}
   - {fileID: 11400000, guid: 091e6809510406940847ab9d137bc151, type: 2}
   - {fileID: 11400000, guid: 8d7b7eb2cbcd8f241af5a1e775ff816b, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 71e3c9e8eacec9942937055fec69405e, type: 2}
+  - {fileID: 11400000, guid: 0a9ee00c28bb3d64c901233952bb403c, type: 2}
   counterTopPoint: {fileID: 8600268116761361624}
 --- !u!4 &3272750450776443687 stripped
 Transform:

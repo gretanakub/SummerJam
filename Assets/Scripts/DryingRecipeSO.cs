@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DryingRecipeSO", menuName = "ScriptableObjects/DryingRecipeSO")]
 public class DryingRecipeSO : ScriptableObject
 {
-    public KitchenObjectSO input;
+    public KitchenObjectSO[] inputArray; // รับ input หลายตัว
     public KitchenObjectSO output;
-    public float dryingTimeMax; // วินาทีที่ใช้ตาก
+    public float dryingTimeMax;
 }

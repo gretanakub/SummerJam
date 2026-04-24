@@ -8,12 +8,14 @@ public class HUDManager : MonoBehaviour
     public class PlayerHUD
     {
         public GameObject panel;
-        public TextMeshProUGUI heartsText;
+        public Transform heartsContainer;
         public TextMeshProUGUI playerName;
         public TextMeshProUGUI ammoText;
+        public Image portrait;
     }
 
     public PlayerHUD[] playerHUDs;
+    public GameObject heartImagePrefab;
     private GameObject[] players;
     private bool[] hudInitialized;
 
@@ -39,6 +41,13 @@ public class HUDManager : MonoBehaviour
             if (!hudInitialized[i])
             {
                 playerHUDs[i].playerName.text = "P" + (i + 1);
+
+                if (CharacterSelector.Instance != null)
+                {
+                    CharacterData data = CharacterSelector.Instance.GetCharacterForPlayer(i);
+                    if (data != null && data.portrait != null && playerHUDs[i].portrait != null)
+                        playerHUDs[i].portrait.sprite = data.portrait;
+                }
 
                 WeaponSystem weapon = players[i].GetComponent<WeaponSystem>();
                 if (weapon != null)
@@ -80,12 +89,18 @@ public class HUDManager : MonoBehaviour
 
     void UpdateHearts(int playerIndex, int hearts, int maxHearts)
     {
-        if (playerHUDs[playerIndex].heartsText == null) return;
+        Transform container = playerHUDs[playerIndex].heartsContainer;
+        if (container == null) return;
 
-        string display = "";
+        foreach (Transform child in container)
+            Destroy(child.gameObject);
+
         for (int i = 0; i < maxHearts; i++)
-            display += i < hearts ? "O " : "X ";
-
-        playerHUDs[playerIndex].heartsText.text = display;
+        {
+            GameObject heart = Instantiate(heartImagePrefab, container);
+            Image img = heart.GetComponent<Image>();
+            if (img != null)
+                img.color = i < hearts ? Color.red : Color.gray;
+        }
     }
 }

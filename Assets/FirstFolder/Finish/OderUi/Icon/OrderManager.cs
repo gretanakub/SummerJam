@@ -6,22 +6,96 @@ using System.Linq;
 
 public class OrderManager : MonoBehaviour
 {
-    public Transform orderFrame;        // Orderframe (มี Layout Group)
+    public static OrderManager Instance { get; private set; }
+
+    [Header("UI")]
+    public Transform orderFrame;
     public GameObject[] orderPrefabs = new GameObject[8];
+
+    [Header("Settings")]
     public float defaultTime = 45f;
+    public float spawnInterval = 15f;
+    public int maxOrders = 5;
+    public int scorePerOrder = 100;
+    public int penaltyPerFail = 50;
 
     private Dictionary<string, GameObject> prefabMap;
-    private Color colorFull = new Color(0.18f, 0.80f, 0.25f); // เขียว
-    private Color colorEmpty = new Color(1.00f, 0.00f, 0.00f); // แดง
+    private List<string> activeOrders = new List<string>();
+    private Color colorFull = new Color(0.18f, 0.80f, 0.25f);
+    private Color colorEmpty = new Color(1.00f, 0.00f, 0.00f);
 
-    void Awake()
+    // ชื่อเมนูทั้งหมด ต้องตรงกับชื่อ Prefab
+    private string[] menuNames = new string[]
     {
+        "Citrus Sunrise Blend",
+        "Berry Tropical Rush",
+        "Golden Pine Citrus",
+        "Melon Sweet Splash",
+        "Berry Citrus Punch",
+        "Tropical Wave Juice",
+        "Sunset Berry Lemon",
+        "Orange Melon Chill"
+    };
+
+    private ScoreManager scoreManager;
+    private bool isGameRunning = false;
+
+    private void Awake()
+    {
+        Instance = this;
+
         prefabMap = new Dictionary<string, GameObject>();
         foreach (var p in orderPrefabs)
             if (p != null) prefabMap[p.name] = p;
     }
 
-    // ── เรียกได้เรื่อยๆ แต่ละชิ้นมี Timer ของตัวเอง ──────
+    private void Start()
+    {
+        scoreManager = FindObjectOfType<ScoreManager>();
+    }
+
+    // เริ่มสุ่ม order
+    public void StartOrdering()
+    {
+        isGameRunning = true;
+        StartCoroutine(SpawnOrderRoutine());
+    }
+
+    // หยุดสุ่ม order
+    public void StopOrdering()
+    {
+        isGameRunning = false;
+        StopAllCoroutines();
+    }
+
+    // สุ่ม order ทุก spawnInterval วินาที
+    private IEnumerator SpawnOrderRoutine()
+    {
+        // spawn อันแรกทันที
+        SpawnRandomOrder();
+
+        while (isGameRunning)
+        {
+            yield return new WaitForSeconds(spawnInterval);
+
+            if (activeOrders.Count < maxOrders)
+                SpawnRandomOrder();
+        }
+    }
+
+    private void SpawnRandomOrder()
+    {
+        // กรอง menu ที่มี prefab เท่านั้น
+        List<string> available = menuNames
+            .Where(m => prefabMap.ContainsKey(m))
+            .ToList();
+
+        if (available.Count == 0) return;
+
+        string randomMenu = available[Random.Range(0, available.Count)];
+        SpawnOrder(randomMenu, defaultTime);
+    }
+
     public void SpawnOrder(string orderName, float time = -1)
     {
         if (!prefabMap.ContainsKey(orderName))
@@ -31,13 +105,13 @@ public class OrderManager : MonoBehaviour
         }
 
         GameObject obj = Instantiate(prefabMap[orderName], orderFrame);
-        obj.name = orderName;
+        obj.name = orderName + "_" + System.Guid.NewGuid().ToString().Substring(0, 4);
+
+        activeOrders.Add(obj.name);
 
         float duration = (time > 0) ? time : defaultTime;
 
-        // หา TimeBar ใน Prefab นั้น
         Image bar = FindTimeBar(obj);
-
         if (bar != null)
         {
             bar.type = Image.Type.Filled;
@@ -45,58 +119,81 @@ public class OrderManager : MonoBehaviour
             bar.fillAmount = 1f;
         }
 
-        // เริ่ม Coroutine แยกต่างหากสำหรับ Order นี้
-        StartCoroutine(RunTimer(obj, bar, duration));
+        StartCoroutine(RunTimer(obj, bar, duration, orderName));
     }
 
-
-    // ── Coroutine: นับถอยหลังของแต่ละ Order ──────────────
-    private IEnumerator RunTimer(GameObject obj, Image bar, float duration)
+    private IEnumerator RunTimer(GameObject obj, Image bar, float duration, string menuName)
     {
         float t = duration;
 
-        while (t > 0f)
+        while (t > 0f && obj != null)
         {
             t -= Time.deltaTime;
-            float ratio = Mathf.Clamp01(t / duration); // ← เปลี่ยนชื่อตัวแปรจาก fill เป็น ratio
+            float ratio = Mathf.Clamp01(t / duration);
 
             if (bar != null)
             {
                 bar.fillAmount = ratio;
-                bar.color = Color.Lerp(colorEmpty, colorFull, ratio); // ← เพิ่มบรรทัดนี้
+                bar.color = Color.Lerp(colorEmpty, colorFull, ratio);
             }
 
             yield return null;
         }
 
+        if (obj == null) yield break;
+
         if (bar != null)
         {
             bar.fillAmount = 0f;
-            bar.color = colorEmpty; // ← เพิ่มบรรทัดนี้
+            bar.color = colorEmpty;
         }
 
         OnOrderTimeUp(obj);
     }
 
-    // ── หมดเวลา: ลบ Order ออกจาก Layout ────────────────
     private void OnOrderTimeUp(GameObject obj)
     {
         Debug.Log($"{obj.name} หมดเวลา!");
+        activeOrders.Remove(obj.name);
+
+        // ลด score ตอน order หมดเวลา
+        if (scoreManager != null)
+            scoreManager.DecreaseScore(penaltyPerFail);
+
         Destroy(obj);
-        // Layout Group จะจัดตำแหน่งใหม่อัตโนมัติ
     }
 
-    // ── ยกเลิก Order ด้วยมือ (เช่น ลูกค้าได้รับออเดอร์) ──
-    public void CompleteOrder(string orderName)
+    // เสิร์ฟเมนู → เช็คว่าตรงกับ order ไหมแล้วให้คะแนน
+    public bool TryServeOrder(string menuName)
     {
-        Transform found = orderFrame
-            .Cast<Transform>()
-            .FirstOrDefault(c => c.name == orderName);
+        // หา order ที่ตรงกับเมนูที่ส่ง
+        string found = activeOrders
+            .FirstOrDefault(o => o.StartsWith(menuName));
 
-        if (found != null) Destroy(found.gameObject);
+        if (found != null)
+        {
+            // หา GameObject ใน orderFrame
+            Transform orderObj = orderFrame
+                .Cast<Transform>()
+                .FirstOrDefault(c => c.name == found);
+
+            if (orderObj != null)
+                Destroy(orderObj.gameObject);
+
+            activeOrders.Remove(found);
+
+            // เพิ่ม score
+            if (scoreManager != null)
+                scoreManager.IncreaseScore(scorePerOrder);
+
+            Debug.Log($"เสิร์ฟ {menuName} สำเร็จ! +{scorePerOrder} คะแนน");
+            return true;
+        }
+
+        Debug.Log($"ไม่มี order {menuName} อยู่!");
+        return false;
     }
 
-    // ── Helper: หา TimeBar ใน Prefab ─────────────────────
     private Image FindTimeBar(GameObject root)
     {
         Transform tb = root.transform.Find("BG/BG2/TimeBarBg/TimeBar");

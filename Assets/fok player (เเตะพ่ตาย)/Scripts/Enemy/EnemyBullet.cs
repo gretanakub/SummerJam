@@ -12,12 +12,24 @@ public class EnemyBullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // กระสุน Enemy โดน Enemy ด้วยกันไม่ได้
         if (other.CompareTag("Enemy")) return;
         if (other.CompareTag("Bullet")) return;
 
-        // โดน Player
-        HealthSystem health = other.GetComponent<HealthSystem>();
+        PlayerHealthSystem health = other.GetComponent<PlayerHealthSystem>();
+        if (health != null)
+        {
+            health.TakeDamage(damage);
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Enemy")) return;
+        if (other.gameObject.CompareTag("Bullet")) return;
+
+        PlayerHealthSystem health = other.gameObject.GetComponent<PlayerHealthSystem>();
         if (health != null)
         {
             health.TakeDamage(damage);

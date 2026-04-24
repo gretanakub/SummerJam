@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Chr_Commando
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: Commando
-  portrait: {fileID: 21300000, guid: 563af075d02058040bf2f9a6b1927699, type: 3}
-  maxHearts: 3
+  portrait: {fileID: 21300000, guid: 3c8c8524f816be84f9d654f41b5b8be6, type: 3}
+  maxHearts: 4
   moveSpeed: 5.5
   dashDistance: 7
   dashCooldown: 1
   weapon: {fileID: 11400000, guid: 53b7c1f7a3998ff429e04b8a1faaab00, type: 2}
   hatPrefab: {fileID: 0}
+  characterModelPrefab: {fileID: 0}
+  handObjectName: fire
+  playerPrefab: {fileID: 0}

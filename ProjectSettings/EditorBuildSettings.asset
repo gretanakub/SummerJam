@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CharacterSelect.unity
     guid: 8bc584b4b6175ba4ea4b2a1025114a28
   - enabled: 1
+    path: Assets/Scenes/Comic.unity
+    guid: 1ce4d194ebf4a6d408623cb8b175c4c7
+  - enabled: 1
     path: Assets/Scenes/test.unity
     guid: e96483ff7addd2943b81dd44d1b02410
   - enabled: 0
