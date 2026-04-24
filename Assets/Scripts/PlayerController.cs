@@ -55,8 +55,17 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     {
         if (context.phase == InputActionPhase.Started)
         {
-            if (selectedCounter != null && selectedCounter is CuttingCounter cuttingCounter)
-                cuttingCounter.InteractAlternate(this);
+            if (selectedCounter != null)
+            {
+                if (selectedCounter is CuttingCounter cuttingCounter)
+                    cuttingCounter.InteractAlternate(this);
+                else if (selectedCounter is MortarCounter mortarCounter)
+                    mortarCounter.InteractAlternate(this);
+                else if (selectedCounter is BlenderCounter blenderCounter)
+                    blenderCounter.InteractAlternate(this);
+                else if (selectedCounter is DryingRackCounter dryingRackCounter)
+                    dryingRackCounter.InteractAlternate(this);
+            }
         }
     }
 
