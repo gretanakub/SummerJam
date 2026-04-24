@@ -206,6 +206,138 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1994259aa6642048880c0df355242be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LookAtCamera
+--- !u!1 &1355479725142029413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3586471411492439350}
+  - component: {fileID: 5822860405441815416}
+  m_Layer: 6
+  m_Name: slot1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3586471411492439350
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355479725142029413}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.131, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2610888305921379891}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5822860405441815416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355479725142029413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88e2eb33e5c13e47ba394e80b89adc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlenderSlot
+--- !u!1 &1939063334086168778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 250747035791542579}
+  - component: {fileID: 227652857290121130}
+  m_Layer: 6
+  m_Name: slot0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &250747035791542579
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939063334086168778}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.19, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2610888305921379891}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &227652857290121130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939063334086168778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88e2eb33e5c13e47ba394e80b89adc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlenderSlot
+--- !u!1 &2427973435760963202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2676448732096959951}
+  - component: {fileID: 5116326335377381561}
+  m_Layer: 6
+  m_Name: slot2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2676448732096959951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2427973435760963202}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.196, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2610888305921379891}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5116326335377381561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2427973435760963202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88e2eb33e5c13e47ba394e80b89adc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlenderSlot
 --- !u!1 &3695382353243757122
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,6 +654,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5790413570744839461, guid: 80b3b27993eacd348b9c9221e6a88f3f, type: 3}
+      propertyPath: m_Name
+      value: Slots
+      objectReference: {fileID: 0}
     - target: {fileID: 6426714806625365355, guid: 80b3b27993eacd348b9c9221e6a88f3f, type: 3}
       propertyPath: m_Name
       value: BlenderCounter
@@ -597,10 +733,22 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8584874363932797683, guid: 80b3b27993eacd348b9c9221e6a88f3f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8227049700331960315}
+    - targetCorrespondingSourceObject: {fileID: 3247929616219266316, guid: 80b3b27993eacd348b9c9221e6a88f3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 250747035791542579}
+    - targetCorrespondingSourceObject: {fileID: 3247929616219266316, guid: 80b3b27993eacd348b9c9221e6a88f3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3586471411492439350}
+    - targetCorrespondingSourceObject: {fileID: 3247929616219266316, guid: 80b3b27993eacd348b9c9221e6a88f3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2676448732096959951}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6426714806625365355, guid: 80b3b27993eacd348b9c9221e6a88f3f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1223460422859411021}
+    - targetCorrespondingSourceObject: {fileID: 5790413570744839461, guid: 80b3b27993eacd348b9c9221e6a88f3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5407730279786780416}
   m_SourcePrefab: {fileID: 100100000, guid: 80b3b27993eacd348b9c9221e6a88f3f, type: 3}
 --- !u!4 &2610888305921379891 stripped
 Transform:
@@ -635,7 +783,29 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6fc636dfd577e6745b8c39a4d837545d, type: 2}
   cupOfIceSO: {fileID: 11400000, guid: 137e0479e36f1bf41a7fe7fbc6960f00, type: 2}
   counterTopPoint: {fileID: 2610888305921379891}
+  ingredientSlots:
+  - {fileID: 5407730279786780416}
+  - {fileID: 227652857290121130}
+  - {fileID: 5822860405441815416}
+  - {fileID: 5116326335377381561}
   blendingTimeMax: 3
+--- !u!1 &6445466515202047514 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5790413570744839461, guid: 80b3b27993eacd348b9c9221e6a88f3f, type: 3}
+  m_PrefabInstance: {fileID: 660142193495905087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5407730279786780416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6445466515202047514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88e2eb33e5c13e47ba394e80b89adc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlenderSlot
 --- !u!4 &9082302959961799116 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8584874363932797683, guid: 80b3b27993eacd348b9c9221e6a88f3f, type: 3}

@@ -12,6 +12,7 @@ public class BlenderCounter : MonoBehaviour, IKitchenObjectParent, ICounter
     [SerializeField] private BlenderRecipeSO[] blenderRecipeSOArray;
     [SerializeField] private KitchenObjectSO cupOfIceSO;
     [SerializeField] private Transform counterTopPoint;
+    [SerializeField] private BlenderSlot[] ingredientSlots; // slots สำหรับวางของ
     [SerializeField] private float blendingTimeMax = 3f;
 
     private KitchenObject kitchenObject;
@@ -36,6 +37,9 @@ public class BlenderCounter : MonoBehaviour, IKitchenObjectParent, ICounter
                 blendingTimer = 0f;
                 blendingDone = true;
 
+                // ซ่อนของทั้งหมดใน slot
+                ClearAllSlots();
+
                 OnBlendingProgressChanged?.Invoke(1f);
                 OnBlendingDone?.Invoke();
                 Debug.Log("ปั่นเสร็จแล้ว! นำ Cup of Ice มากดเพื่อรับเมนู");
@@ -51,16 +55,23 @@ public class BlenderCounter : MonoBehaviour, IKitchenObjectParent, ICounter
             {
                 KitchenObjectSO ingredient = player.GetKitchenObject().GetKitchenObjectSO();
 
-                Debug.Log("ของที่ถืออยู่ = " + ingredient.objectName);
-                Debug.Log("IsValidIngredient = " + IsValidIngredient(ingredient));
-                Debug.Log("isBlending = " + isBlending);
-
                 if (IsValidIngredient(ingredient) && !isBlending)
                 {
-                    ingredientList.Add(ingredient);
-                    player.GetKitchenObject().DestroySelf();
-                    OnIngredientAdded?.Invoke();
-                    Debug.Log("ใส่ " + ingredient.objectName + " เข้า Blender แล้ว (" + ingredientList.Count + " ตัว)");
+                    // หา slot ว่าง
+                    BlenderSlot freeSlot = GetFreeSlot();
+
+                    if (freeSlot != null)
+                    {
+                        // วางของลง slot จริงๆ แทน DestroySelf
+                        player.GetKitchenObject().SetKitchenObjectParent(freeSlot);
+                        ingredientList.Add(ingredient);
+                        OnIngredientAdded?.Invoke();
+                        Debug.Log("ใส่ " + ingredient.objectName + " เข้า Blender แล้ว (" + ingredientList.Count + " ตัว)");
+                    }
+                    else
+                    {
+                        Debug.Log("Blender เต็มแล้ว");
+                    }
                 }
                 else
                 {
@@ -69,7 +80,24 @@ public class BlenderCounter : MonoBehaviour, IKitchenObjectParent, ICounter
             }
             else
             {
-                Debug.Log("player ไม่ได้ถือของอยู่");
+                // ไม่ถือของ → เอา ingredient ออกทีละตัว
+                if (!isBlending && ingredientList.Count > 0)
+                {
+                    KitchenObjectSO lastIngredient = ingredientList[ingredientList.Count - 1];
+                    ingredientList.RemoveAt(ingredientList.Count - 1);
+
+                    // หา slot ที่มีของตัวนั้น
+                    BlenderSlot slot = GetSlotWithIngredient(lastIngredient);
+                    if (slot != null)
+                        slot.GetKitchenObject().SetKitchenObjectParent(player);
+
+                    OnIngredientAdded?.Invoke();
+                    Debug.Log("เอา " + lastIngredient.objectName + " ออกจาก Blender แล้ว");
+                }
+                else if (isBlending)
+                {
+                    Debug.Log("กำลังปั่นอยู่ ไม่สามารถเอาของออกได้");
+                }
             }
         }
         else
@@ -122,13 +150,42 @@ public class BlenderCounter : MonoBehaviour, IKitchenObjectParent, ICounter
         }
     }
 
+    private BlenderSlot GetFreeSlot()
+    {
+        foreach (BlenderSlot slot in ingredientSlots)
+        {
+            if (!slot.HasKitchenObject())
+                return slot;
+        }
+        return null;
+    }
+
+    private BlenderSlot GetSlotWithIngredient(KitchenObjectSO so)
+    {
+        foreach (BlenderSlot slot in ingredientSlots)
+        {
+            if (slot.HasKitchenObject() &&
+                slot.GetKitchenObject().GetKitchenObjectSO() == so)
+                return slot;
+        }
+        return null;
+    }
+
+    private void ClearAllSlots()
+    {
+        foreach (BlenderSlot slot in ingredientSlots)
+        {
+            if (slot.HasKitchenObject())
+                slot.GetKitchenObject().DestroySelf();
+        }
+    }
+
     private bool IsValidIngredient(KitchenObjectSO ingredientSO)
     {
         foreach (BlenderRecipeSO recipe in blenderRecipeSOArray)
         {
             foreach (KitchenObjectSO input in recipe.inputArray)
             {
-                Debug.Log("เช็ค " + ingredientSO.objectName + " กับ " + input.objectName + " = " + (input == ingredientSO));
                 if (input == ingredientSO)
                     return true;
             }
