@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 206753777676706125}
   - component: {fileID: 5148137509171787380}
   - component: {fileID: 8783161831153427600}
+  - component: {fileID: 1925361639429888063}
   m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
@@ -284,6 +285,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MortarProgressUI
   mortarCounter: {fileID: 3669081765269125406}
   barImage: {fileID: 3530021563120732208}
+--- !u!114 &1925361639429888063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7298670600029651035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1994259aa6642048880c0df355242be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LookAtCamera
 --- !u!1001 &2594740486591420830
 PrefabInstance:
   m_ObjectHideFlags: 0
